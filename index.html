@@ -317,6 +317,9 @@
             opacity: 0.9;
             margin-bottom: 1rem;
             font-size: 0.95rem;
+            font-family: 'Georgia', serif;
+            line-height: 1.4;
+            font-size: 0.9rem; /* Leggermente più piccolo */
         }
         .tappa-tags {
             display: flex;
@@ -433,24 +436,147 @@
 
     <script>
         const ITINERARY = {
-        1: [
-            { title: "Ryanair - FR 4311", note: "Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Partenza 16:20 BGY, Arrivo 21:15 RVN.", tags: ["Volo", "Ryanair"] },
-            { title: "Ritiro Auto", note: "Ritiro alle 21:30 con Green Motion all'aeroporto.", tags: ["Noleggio"] },
-            { title: "Santa Claus Holiday Village", note: "Check-in alle 22:00, 2 notti.", tags: ["Pernottamento"] },
-            { title: "Caccia Aurora", note: "Alle 22:15 Breve passeggiata e caccia all'aurora in zona. Da valutare sul momento.", tags: ["Aurora"] }
-        ],
-        // ... Aggiungi qui gli altri giorni dal file originale se necessario, ma per test usa questo minimale
-        2: [{ title: "Test Giorno 2", note: "Funziona!", tags: ["Test"] }],
-        3: [{ title: "Test Giorno 3", note: "Funziona!", tags: ["Test"] }],
-        4: [{ title: "Test Giorno 4", note: "Funziona!", tags: ["Test"] }]
-        };
+            1: [
+                {
+                title: "Ryanair - FR 4311",
+                note: "Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Partenza 16:20 BGY, Arrivo 21:15 RVN.",
+                tags: ["Volo", "Ryanair"],
+                image: "rovaniemi-airport.jpg"
+                },
+                {
+                title: "Ritiro Auto",
+                note: "Ritiro alle 21:30 con Green Motion all'aeroporto.",
+                tags: ["Noleggio", "Auto"],
+                image: "green-motion-car.jpg"
+                },
+                {
+                title: "Santa Claus Holiday Village",
+                note: "Check-in alle 22:00, 2 notti.",
+                tags: ["Pernottamento"],
+                image: "santa-claus-village.jpg"
+                },
+                {
+                title: "Caccia Aurora",
+                note: "Alle 22:15 Breve passeggiata e caccia all'aurora in zona. Da valutare sul momento.",
+                tags: ["Aurora"],
+                image: "aurora-borealis.jpg"
+                }
+            ],
+            2: [
+                {
+                title: "Colazione",
+                note: "Colazione inclusa nel pernottamento (7:30-10:00).",
+                tags: ["Colazione"],
+                image: "breakfast-village.jpg"
+                },
+                {
+                title: "Santa Claus Village",
+                note: "Mattina: Visita al Santa Claus Village.",
+                tags: ["Turismo"],
+                image: "santa-village-visit.jpg"
+                },
+                {
+                title: "Husky Park",
+                note: "Husky Ride meeting Experience HUS-T112835790 alle 13:30 - Husky Park al Santa Claus Village.",
+                tags: ["Attività", "Husky", "Avventura"],
+                image: "husky-ride.jpg"
+                },
+                {
+                title: "Pomeriggio Rilassamento",
+                note: "Visita al Santa Claus Village e sauna nel cottage. Tardo pomeriggio: Camminata in zona e cena (al villaggio o in città).",
+                tags: ["Relax", "Sauna"],
+                image: "sauna-cottage.jpg"
+                },
+                {
+                title: "Caccia Aurora",
+                note: "Sera post cena: Si prende la macchina e si controlla l'app dedicata.",
+                tags: ["Aurora"],
+                image: "aurora-hunt.jpg"
+                }
+            ],
+            3: [
+                {
+                title: "Colazione",
+                note: "Colazione inclusa nel pernottamento (7:30-10:00).",
+                tags: ["Colazione"],
+                image: "breakfast-nova.jpg"
+                },
+                {
+                title: "Ranua’s Arctic Wildlife Park",
+                note: "Ore 11:00. Biglietti prenotati online. Ritirare braccialetti all'ingresso con numero di prenotazione.",
+                tags: ["Attività", "Animali", "Parco"],
+                image: "ranua-wildlife.jpg"
+                },
+                {
+                title: "Nova Galaxy Village",
+                note: "Arrivo e check-in dalle 15:00, 1 notte. Aurora Hut - River Side.",
+                tags: ["Pernottamento"],
+                image: "nova-galaxy.jpg"
+                },
+                {
+                title: "Sauna e Passeggiate",
+                note: "Ore 15:30. Eventuali attività da valutare sul momento.",
+                tags: ["Relax", "Sauna"],
+                image: "sauna-riverside.jpg"
+                },
+                {
+                title: "The Night Sky Snowmobile Tour",
+                note: "Ore 21:00.",
+                tags: ["Attività", "Snowmobile", "Avventura"],
+                image: "snowmobile-tour.jpg"
+                }
+            ],
+            4: [
+                {
+                title: "Colazione e Sauna",
+                note: "Colazione inclusa (7:30-10:00). Post colazione: Sauna e preparazione per partenza.",
+                tags: ["Colazione", "Sauna"],
+                image: "final-breakfast.jpg"
+                },
+                {
+                title: "Check-out e Centro Rovaniemi",
+                note: "Ore 11:00. Check-out e visita in centro Rovaniemi. Valutare ingresso al Museo Arktikum.",
+                tags: ["Turismo"],
+                image: "arktikum-museum.jpg"
+                },
+                {
+                title: "Consegna Auto",
+                note: "Ore 17:00 con Green Motion in aeroporto.",
+                tags: ["Noleggio", "Auto"],
+                image: "car-return.jpg"
+                },
+                {
+                title: "Ryanair - FR 4312",
+                note: "Da Rovaniemi a Bergamo. Partenza 18:50 RVN, Arrivo 21:45 BGY. Volo senza scali 3 ore e 55 minuti.",
+                tags: ["Volo", "Ryanair"],
+                image: "rovaniemi-airport-departure.jpg"
+                }
+            ]
+            };
 
         const DAYHEROS = {
-        1: { bg: "rovaniemi.jpg", title: "21 Marzo - Arrivo Rovaniemi", subtitle: "Volo, auto e prime luci boreali al Village" },
-        2: { bg: "SCHV.jpg", title: "22 Marzo - Santa Claus Village", subtitle: "Husky ride, sauna e caccia aurora" },
-        3: { bg: "nova.jpg", title: "23 Marzo - Wildlife Galaxy", subtitle: "Ranua Park, Aurora Hut e snowmobile" },
-        4: { bg: "artikum.jpg", title: "24 Marzo - Ritorno", subtitle: "Centro città e volo casa" }
+            1: {
+                bg: "rovaniemi.jpg",
+                title: "21 Marzo - Arrivo Rovaniemi",
+                subtitle: "Volo, auto e prime luci boreali al Village"
+            },
+            2: {
+                bg: "SCHV.jpg",
+                title: "22 Marzo - Santa Claus Village",
+                subtitle: "Husky ride, sauna e caccia aurora"
+            },
+            3: {
+                bg: "nova.jpg",
+                title: "23 Marzo - Wildlife Galaxy",
+                subtitle: "Ranua Park, Aurora Hut e snowmobile"
+            },
+            4: {
+                bg: "arktikum.jpg",
+                title: "24 Marzo - Ritorno",
+                subtitle: "Centro città e volo casa"
+            }
         };
+
 
         const tabs = document.querySelectorAll('.day-tab');
         const content = document.getElementById('itineraryContent');
