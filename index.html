@@ -526,7 +526,7 @@
                     musicBtn.classList.remove('playing');
                     musicBtn.classList.add('paused');
                     musicBtn.title = 'Attiva musica';
-                    music.volume = 0.3; // Reset volume for next play
+                    music.volume = 0.1; // Reset volume for next play
                 }
             }, fadeInterval);
         }
@@ -534,6 +534,40 @@
         // Init
         renderContent(1);
         music.volume = 0.3;
+
+        let musicStarted = false;
+
+        // Function to start music with fade in
+        async function startMusic() {
+            if (musicStarted) return;
+            musicStarted = true;
+            try {
+                music.volume = 0;
+                await music.play();
+                musicBtn.classList.add('playing');
+                musicBtn.title = 'Disattiva musica';
+                fadeInMusic();
+            } catch (err) {
+                console.log('Errore avvio musica:', err.message);
+            }
+        }
+
+        // Start music on first user interaction
+        document.addEventListener('click', () => {
+            startMusic();
+        }, { once: true });
+
+        function fadeInMusic() {
+            const fadeStep = 0.03; // Increase volume by 3% each step
+            const fadeInterval = 100; // Every 100ms
+            const fadeIn = setInterval(() => {
+                if (music.volume < 0.3) {
+                    music.volume = Math.min(0.3, music.volume + fadeStep);
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, fadeInterval);
+        }
     </script>
 </body>
 </html>
