@@ -80,6 +80,22 @@
           transition: opacity 0.3s ease, color 0.3s ease;
           box-shadow: none; /* Nessuna ombra */
           backdrop-filter: none;
+          position: relative;
+        }
+        .music-btn::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 20px;
+          height: 2px;
+          background-color: #fef3c7;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .music-btn.paused::after {
+          opacity: 1;
         }
         .music-btn:hover, .music-btn.playing {
           opacity: 1;
@@ -484,19 +500,36 @@
 
         musicBtn.addEventListener('click', async () => {
         if (musicBtn.classList.contains('playing')) {
-            music.pause();
-            musicBtn.classList.remove('playing');
-            musicBtn.title = 'Attiva musica';
+            // Fade out volume before pausing
+            fadeOutMusic();
         } else {
             try {
             await music.play();
             musicBtn.classList.add('playing');
+            musicBtn.classList.remove('paused');
             musicBtn.title = 'Disattiva musica';
             } catch (err) {
             console.error('Errore riproduzione musica:', err);
             }
         }
         });
+
+        function fadeOutMusic() {
+            const fadeStep = 0.05; // Decrease volume by 5% each step
+            const fadeInterval = 50; // Every 50ms
+            const fadeOut = setInterval(() => {
+                if (music.volume > 0) {
+                    music.volume = Math.max(0, music.volume - fadeStep);
+                } else {
+                    clearInterval(fadeOut);
+                    music.pause();
+                    musicBtn.classList.remove('playing');
+                    musicBtn.classList.add('paused');
+                    musicBtn.title = 'Attiva musica';
+                    music.volume = 0.3; // Reset volume for next play
+                }
+            }, fadeInterval);
+        }
 
         // Init
         renderContent(1);
