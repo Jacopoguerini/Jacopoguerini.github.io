@@ -1,699 +1,670 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>30 Anni Cherie - Rovaniemi</title>
-    <style>
-          :root {
-            --primary-bg: linear-gradient(135deg, #1e1b4b 0%, #0f0f23 50%, #1a1a2e 100%);
-            --card-bg: rgba(30, 27, 75, 0.95);
-            --accent-aurora: #c084fc; /* Viola aurora */
-            --accent-ice: #60a5fa; /* Azzurro ghiaccio */
-            --accent-snow: #f8fafc;
-            --accent-fire: #f87171; /* Rosso fuoco boreale */
-            --text-light: #f1f5f9;
-            --shadow-lg: 0 25px 50px rgba(0,0,0,0.6);
-            --border-glow: 1px solid rgba(192, 132, 252, 0.4);
-          }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--primary-bg);
-            color: var(--text-light);
-            line-height: 1.5;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(15,23,42,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: var(--border-glow);
-            padding: 1rem 1.5rem;
-        }
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .logo-box {
-          display: flex;
-          flex-direction: column; /* Verticale per stack testo/sub */
-          align-items: flex-start; /* Allineato a sinistra */
-          gap: 0.25rem;
-        }
-        .logo-text {
-          font-weight: 900;
-          font-size: 1.3rem;
-          background: linear-gradient(135deg, #fef3c7, #fac915);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        .logo-sub {
-          font-size: 0.8rem;
-          opacity: 0.9;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          font-weight: 600;
-        }
-        .music-btn {
-          width: 44px;
-          height: 44px;
-          border: none;
-          background: none; /* Nessun sfondo */
-          color: #fef3c7; /* Colore chiaro (oro chiaro) */
-          font-size: 1.2rem;
-          opacity: 0.6; /* Semi-trasparente di base */
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: opacity 0.3s ease, color 0.3s ease;
-          box-shadow: none; /* Nessuna ombra */
-          backdrop-filter: none;
-          position: relative;
-        }
-        .music-btn::after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 20px;
-          height: 2px;
-          background-color: #fef3c7;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        .music-btn.paused::after {
-          opacity: 1;
-        }
-        .music-btn:hover, .music-btn.playing {
-          opacity: 1;
-          color: #fac915; /* Oro più luminoso al hover/playing */
-        }
-        .hero {
-            text-align: center;
-            padding: 3rem 1.5rem 2.5rem;
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(254,243,199,0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 7vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fef3c7, #facc15);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1rem;
-            opacity: 0.95;
-            max-width: 320px;
-            margin: 0 auto;
-        }
-        .day-tabs {
-            display: flex;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem 0.5rem;
-            overflow-x: auto;
-            scrollbar-width: none;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .day-tabs::-webkit-scrollbar {
-            display: none;
-        }
-        .day-tab {
-            flex: 0 0 auto;
-            padding: 1rem 1.25rem;
-            background: rgba(15,23,42,0.8);
-            border: 2px solid rgba(254,243,199,0.2);
-            border-radius: 25px;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            white-space: nowrap;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-            backdrop-filter: blur(12px);
-            min-width: 110px;
-            position: relative;
-        }
-        .day-tab.active {
-            background: linear-gradient(135deg, rgba(250,204,21,0.25), rgba(15,23,42,0.9));
-            border-color: var(--accent-gold);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(250,204,21,0.3);
-        }
-        .day-num {
-            font-size: 1.1rem;
-            font-weight: 800;
-        }
-        .day-label {
-            font-size: 0.75rem;
-            opacity: 0.85;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .day-hero {
-            height: 40vh;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            margin: 1rem 1.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.5s ease;
-        }
-        .day-hero.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .day-hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(20, 30, 53, 0.9));
-            padding: 2rem 1.5rem 1.5rem;
-            border-radius: 20px;
-            z-index: 2;
-        }
-        .day-hero-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-        .day-hero-subtitle {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-        .day-hero-title,
-        .day-hero-subtitle {
-            position: relative;
-            z-index: 2;  /* Testi esplicitamente davanti */
-        }
-        .day-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 23, 42, 0.507); /* Opacità media scura, regola il 0.6 come preferisci (0.4-0.8) */
-            border-radius: 20px;
-            z-index: 1;
-        }
-        .itinerario-section {
-            padding: 1.5rem 1.5rem 3rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            background: linear-gradient(135deg, #facc15, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .tappa-card {
-            background: var(--card-bg);
-            border: var(--border-glow);
-            border-radius: 20px;
-            margin-bottom: 1.25rem;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(15px);
-            position: relative; /* Per overlay */
-            background-size: cover !important; /* Per immagini */
-            background-position: center;
-        }
-        .tappa-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(0, 0, 0, 0.7)); /* Overlay scuro sfumato */
-            border-radius: inherit;
-            z-index: 1;
-            backdrop-filter: blur(2px); /* Leggero sfocato per profondità */
-            }
-        .tappa-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-        }
-        .tappa-card.active {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 30px rgba(250,204,21,0.4);
-        }
-        .tappa-head {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .tappa-head, .tappa-body {
-            position: relative;
-            z-index: 2; /* Testi sopra overlay */
-            }
-        .tappa-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        .expand-icon {
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-            opacity: 0.8;
-        }
-        .tappa-card.active .expand-icon {
-            transform: rotate(180deg);
-        }
-        .tappa-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
-        }
-        .tappa-card.active .tappa-body {
-            max-height: 500px;
-            padding: 0 1.5rem 1.5rem;
-        }
-        .tappa-note {
-            opacity: 0.9;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            font-family: 'Georgia', serif;
-            line-height: 1.4;
-            font-size: 0.9rem; /* Leggermente più piccolo */
-        }
-        .tappa-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .tag {
-          padding: 0.4rem 0.8rem;
-          border-radius: 20px;
-          font-size: 0.75rem;
-          font-weight: 600;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-          transition: all 0.3s ease;
-        }
-        .tag.volo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
-        .tag.noleggio, .tag.auto { background: linear-gradient(135deg, #eab308, #ca8a04); color: white; }
-        .tag.pernottamento, .tag.colazione { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .tag.aurora { background: linear-gradient(135deg, #ec4899, #be185d); color: white; }
-        .tag.turismo { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
-        .tag.attivita, .tag.husky, .tag.avventura, .tag.snowmobile, .tag.parco { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .tag.relax { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
-        .tag.animali { background: linear-gradient(135deg, #84cc16, #65a30d); color: white; }
-        .footer {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            opacity: 0.8;
-            font-size: 0.95rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(250, 204, 21, 0.3);
-            border-top: 4px solid #facc15;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 10;
-        }
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234ade80'/%3E%3Cstop offset='100%25' stop-color='%2393c5fd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='%23060a14' stroke='url(%23g)' stroke-width='2'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif' font-weight='800' font-size='24' fill='%234ade80'%3E30%3C/text%3E%3C/svg%3E">
 
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
+		<title>30 Anni Cherie - Rovaniemi</title>
 
-        .loading {
-            pointer-events: none;
-            opacity: 0.7;
-        }
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
 
-        @media (max-width: 480px) {
-            .day-hero {
-                height: 30vh;
-                margin: 1rem 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-inner">
-            <div class="logo-box">
-              <div class="logo-text">Cherie Rovaniemi</div>
-              <div class="logo-sub">30 Anni</div>
-            </div>
-            <button class="music-btn" id="musicToggle" title="Attiva musica">🎵</button>
-        </div>
-    </header>
+		<script id="tailwind-config">
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							midnight: "#060a14",
+							charcoal: "#111827",
+							"deep-blue": "#1e293b",
+							frost: "#f1f5f9",
+							aurora: "#4ade80",
+							"ice-blue": "#93c5fd",
+							"pale-gold": "#fde68a",
+							"frosty-mint": "#ccfbf1",
+						},
+						fontFamily: {
+							sans: ["Plus Jakarta Sans", "sans-serif"],
+						},
+					},
+				},
+			};
+		</script>
 
-    <section class="hero">
-        <h1>Lapponia Magica</h1>
-        <p>Santa Claus Village, Husky, Aurora Boreale - Celebriamo i 30 anni!</p>
-    </section>
+		<style type="text/tailwindcss">
+			:root {
+				--midnight: #060a14;
+				--charcoal: #111827;
+				--deep-blue: #1e293b;
+				--frost: #f1f5f9;
+			}
 
-    <div class="day-tabs">
-        <button class="day-tab active" data-day="1">
-            <span class="day-num">21</span>
-            <span class="day-label">Arrivo</span>
-        </button>
-        <button class="day-tab" data-day="2">
-            <span class="day-num">22</span>
-            <span class="day-label">Village</span>
-        </button>
-        <button class="day-tab" data-day="3">
-            <span class="day-num">23</span>
-            <span class="day-label">Wildlife</span>
-        </button>
-        <button class="day-tab" data-day="4">
-            <span class="day-num">24</span>
-            <span class="day-label">Ritorno</span>
-        </button>
-    </div>
+			body {
+				background-color: var(--midnight);
+				color: var(--frost);
+				background-image: radial-gradient(
+						circle at 20% 20%,
+						rgba(74, 222, 128, 0.05) 0%,
+						transparent 40%
+					),
+					radial-gradient(
+						circle at 80% 80%,
+						rgba(56, 189, 248, 0.05) 0%,
+						transparent 40%
+					);
+			}
 
-    <section class="day-hero" id="dayHero"></section>
+			details > summary {
+				list-style: none;
+			}
 
-    <section class="itinerario-section">
-        <h2 class="section-title">Itinerario Dettagliato</h2>
-        <div id="itineraryContent">
-            <!-- Dinamico via JS -->
-        </div>
-    </section>
+			details > summary::-webkit-details-marker {
+				display: none;
+			}
 
-    <footer class="footer">
-        <p>Viaggio pronto per Cherie ❤️</p>
-    </footer>
+			.glass-card {
+				background: rgba(17, 24, 39, 0.7);
+				backdrop-filter: blur(16px);
+				border: 1px solid rgba(255, 255, 255, 0.08);
+			}
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="kh.mp3" type="audio/mpeg">
-    </audio>
+			.sticky-header {
+				background: rgba(6, 10, 20, 0.85);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+			}
 
-    <script>
-        const ITINERARY = {
-            1: [
-                {
-                title: "Ryanair - FR 4311",
-                note: "Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Partenza 16:20 BGY, Arrivo 21:15 RVN.",
-                tags: ["Volo", "Ryanair"],
-                image: "rovaniemi-airport.jpg"
-                },
-                {
-                title: "Ritiro Auto",
-                note: "Ritiro alle 21:30 con Green Motion all'aeroporto.",
-                tags: ["Noleggio", "Auto"],
-                image: "green-motion-car.jpg"
-                },
-                {
-                title: "Santa Claus Holiday Village",
-                note: "Check-in alle 22:00, 2 notti.",
-                tags: ["Pernottamento"],
-                image: "santa-claus-village.jpg"
-                },
-                {
-                title: "Caccia Aurora",
-                note: "Alle 22:15 Breve passeggiata e caccia all'aurora in zona. Da valutare sul momento.",
-                tags: ["Aurora"],
-                image: "aurora-borealis.jpg"
-                }
-            ],
-            2: [
-                {
-                title: "Colazione",
-                note: "Colazione inclusa nel pernottamento (7:30-10:00).",
-                tags: ["Colazione"],
-                image: "breakfast-village.jpg"
-                },
-                {
-                title: "Santa Claus Village",
-                note: "Mattina: Visita al Santa Claus Village.",
-                tags: ["Turismo"],
-                image: "santa-village-visit.jpg"
-                },
-                {
-                title: "Husky Park",
-                note: "Husky Ride meeting Experience HUS-T112835790 alle 13:30 - Husky Park al Santa Claus Village.",
-                tags: ["Attività", "Husky", "Avventura"],
-                image: "husky-ride.jpg"
-                },
-                {
-                title: "Pomeriggio Rilassamento",
-                note: "Visita al Santa Claus Village e sauna nel cottage. Tardo pomeriggio: Camminata in zona e cena (al villaggio o in città).",
-                tags: ["Relax", "Sauna"],
-                image: "sauna-cottage.jpg"
-                },
-                {
-                title: "Caccia Aurora",
-                note: "Sera post cena: Si prende la macchina e si controlla l'app dedicata.",
-                tags: ["Aurora"],
-                image: "aurora-hunt.jpg"
-                }
-            ],
-            3: [
-                {
-                title: "Colazione",
-                note: "Colazione inclusa nel pernottamento (7:30-10:00).",
-                tags: ["Colazione"],
-                image: "breakfast-nova.jpg"
-                },
-                {
-                title: "Ranua’s Arctic Wildlife Park",
-                note: "Ore 11:00. Biglietti prenotati online. Ritirare braccialetti all'ingresso con numero di prenotazione.",
-                tags: ["Attività", "Animali", "Parco"],
-                image: "ranua-wildlife.jpg"
-                },
-                {
-                title: "Nova Galaxy Village",
-                note: "Arrivo e check-in dalle 15:00, 1 notte. Aurora Hut - River Side.",
-                tags: ["Pernottamento"],
-                image: "nova-galaxy.jpg"
-                },
-                {
-                title: "Sauna e Passeggiate",
-                note: "Ore 15:30. Eventuali attività da valutare sul momento.",
-                tags: ["Relax", "Sauna"],
-                image: "sauna-riverside.jpg"
-                },
-                {
-                title: "The Night Sky Snowmobile Tour",
-                note: "Ore 21:00.",
-                tags: ["Attività", "Snowmobile", "Avventura"],
-                image: "snowmobile-tour.jpg"
-                }
-            ],
-            4: [
-                {
-                title: "Colazione e Sauna",
-                note: "Colazione inclusa (7:30-10:00). Post colazione: Sauna e preparazione per partenza.",
-                tags: ["Colazione", "Sauna"],
-                image: "final-breakfast.jpg"
-                },
-                {
-                title: "Check-out e Centro Rovaniemi",
-                note: "Ore 11:00. Check-out e visita in centro Rovaniemi. Valutare ingresso al Museo Arktikum.",
-                tags: ["Turismo"],
-                image: "arktikum-museum.jpg"
-                },
-                {
-                title: "Consegna Auto",
-                note: "Ore 17:00 con Green Motion in aeroporto.",
-                tags: ["Noleggio", "Auto"],
-                image: "car-return.jpg"
-                },
-                {
-                title: "Ryanair - FR 4312",
-                note: "Da Rovaniemi a Bergamo. Partenza 18:50 RVN, Arrivo 21:45 BGY. Volo senza scali 3 ore e 55 minuti.",
-                tags: ["Volo", "Ryanair"],
-                image: "rovaniemi-airport-departure.jpg"
-                }
-            ]
-            };
+			.aurora-accent {
+				background: linear-gradient(90deg, #4ade80 0%, #38bdf8 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
 
-        const DAYHEROS = {
-            1: {
-                bg: "rovaniemi.jpg",
-                title: "21 Marzo - Arrivo Rovaniemi",
-                subtitle: "Volo, auto e prime luci boreali al Village"
-            },
-            2: {
-                bg: "SCHV.jpg",
-                title: "22 Marzo - Santa Claus Village",
-                subtitle: "Husky ride, sauna e caccia aurora"
-            },
-            3: {
-                bg: "nova.jpg",
-                title: "23 Marzo - Wildlife Galaxy",
-                subtitle: "Ranua Park, Aurora Hut e snowmobile"
-            },
-            4: {
-                bg: "arktikum.jpg",
-                title: "24 Marzo - Ritorno",
-                subtitle: "Centro città e volo casa"
-            }
-        };
+			.timeline-line::before {
+				content: "";
+				position: absolute;
+				left: 19px;
+				top: 40px;
+				bottom: 20px;
+				width: 1px;
+				background: rgba(147, 197, 253, 0.2);
+			}
 
+			/* Replaced the small bar indicator with an icon-state approach */
+			#musicToggle .music-icon.playing {
+				color: #93c5fd;
+				transform: scale(1);
+				transition: transform 0.18s ease, opacity 0.18s ease;
+				opacity: 1;
+			}
 
-        const tabs = document.querySelectorAll('.day-tab');
-        const content = document.getElementById('itineraryContent');
-        const dayHero = document.getElementById('dayHero');
-        const musicBtn = document.getElementById('musicToggle');
-        const music = document.getElementById('bgMusic');
-        let activeDay = 1;
+			#musicToggle .music-icon.paused {
+				color: #93c5fd;
+				opacity: 0.65;
+				transform: scale(0.95);
+			}
+		</style>
 
-        function renderContent(day) {
-        const items = ITINERARY[day];
-        content.innerHTML = items.map((item, i) => `
-            <div class="tappa-card" style="background-image: url('${item.image || ''}')" onclick="toggleCard(this)">
-            <div class="tappa-head">
-                <div class="tappa-title">${item.title}</div>
-                <span class="expand-icon">▼</span>
-            </div>
-            <div class="tappa-body">
-                <div class="tappa-note">${item.note}</div>
-                <div class="tappa-tags">${item.tags.map(tag => `<span class="tag ${tag.toLowerCase()}">${tag}</span>`).join('')}</div>
-            </div>
-            </div>
-        `).join('');
-        
-        const heroData = DAYHEROS[day];
-        dayHero.style.backgroundImage = `url(${heroData.bg})`;
-        dayHero.innerHTML = `
-            <div class="day-hero-overlay">
-            <div class="day-hero-title">${heroData.title}</div>
-            <div class="day-hero-subtitle">${heroData.subtitle}</div>
-            </div>
-        `;
-        dayHero.classList.add('active');
-        }
+		<style>
+			body {
+				min-height: max(884px, 100dvh);
+			}
+		</style>
+	</head>
 
-        function toggleCard(card) {
-        card.classList.toggle('active');
-        }
+	<body class="font-sans antialiased pb-12">
+		<header
+			class="sticky top-0 z-50 sticky-header px-5 py-4 flex items-center justify-between"
+		>
+			<div class="flex items-center gap-2">
+				<span class="material-symbols-outlined text-aurora text-xl">ac_unit</span>
+				<h1 class="text-sm font-bold tracking-tight text-frost">Cherie Rovaniemi</h1>
+			</div>
 
-        tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            activeDay = parseInt(tab.dataset.day);
-            renderContent(activeDay);
-        });
-        });
+			<button
+				class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 active:scale-90 transition-transform"
+				id="musicToggle"
+				title="Attiva musica"
+				aria-pressed="false"
+			>
+				<span class="material-symbols-outlined text-ice-blue music-icon">graphic_eq</span>
+			</button>
+		</header>
 
-        musicBtn.addEventListener('click', async () => {
-        if (musicBtn.classList.contains('playing')) {
-            // Fade out volume before pausing
-            fadeOutMusic();
-        } else {
-            try {
-            await music.play();
-            musicBtn.classList.add('playing');
-            musicBtn.classList.remove('paused');
-            musicBtn.title = 'Disattiva musica';
-            } catch (err) {
-            console.error('Errore riproduzione musica:', err);
-            }
-        }
-        });
+		<main class="px-5 pt-6 space-y-5">
+			<div
+				class="relative h-44 w-full rounded-3xl overflow-hidden mb-8 border border-white/10 shadow-2xl"
+			>
+				<img
+					alt="Rovaniemi"
+					class="absolute inset-0 w-full h-full object-cover"
+					src="rovaniemi.jpg"
+				/>
+				<div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+				<div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none"></div>
+				<div class="absolute bottom-4 left-5">
+					<span class="text-[10px] font-black uppercase tracking-[0.2em] aurora-accent">Lapland Region</span>
+					<p class="text-lg font-bold">Arctic Circle Retreat</p>
+				</div>
+			</div>
 
-        function fadeOutMusic() {
-            const fadeStep = 0.05; // Decrease volume by 5% each step
-            const fadeInterval = 50; // Every 50ms
-            const fadeOut = setInterval(() => {
-                if (music.volume > 0) {
-                    music.volume = Math.max(0, music.volume - fadeStep);
-                } else {
-                    clearInterval(fadeOut);
-                    music.pause();
-                    musicBtn.classList.remove('playing');
-                    musicBtn.classList.add('paused');
-                    musicBtn.title = 'Attiva musica';
-                    music.volume = 0.2; // Reset volume for next play
-                }
-            }, fadeInterval);
-        }
+			<details class="group">
+				<summary
+					class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all"
+				>
+					<div class="flex items-center justify-between w-full mb-2">
+						<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 1</span>
+						<span
+							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue"
+						>
+							expand_more
+						</span>
+					</div>
 
-        // Init
-        renderContent(1);
-        music.volume = 0.2;
+					<h2 class="text-lg font-bold leading-tight mb-1">21 Marzo - Arrivo Rovaniemi</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Volo, auto e prime luci boreali al Village.</p>
+				</summary>
 
-        let musicStarted = false;
+				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">flight_land</span>
+						</div>
 
-        // Function to start music with fade in
-        async function startMusic() {
-            if (musicStarted) return;
-            musicStarted = true;
-            try {
-                music.volume = 0;
-                await music.play();
-                musicBtn.classList.add('playing');
-                musicBtn.title = 'Disattiva musica';
-                fadeInMusic();
-            } catch (err) {
-                console.log('Errore avvio musica:', err.message);
-            }
-        }
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">16:20</p>
+							<h4 class="text-sm font-bold text-frost">Ryanair - FR 4311</h4>
+							<p class="text-xs text-slate-400 mt-1">Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Arrivo 21:15 RVN.</p>
+						</div>
+					</div>
 
-        // Start music on first user interaction
-        document.addEventListener('click', () => {
-            startMusic();
-        }, { once: true });
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">directions_car</span>
+						</div>
 
-        function fadeInMusic() {
-            const fadeStep = 0.03; // Increase volume by 3% each step
-            const fadeInterval = 100; // Every 100ms
-            const fadeIn = setInterval(() => {
-                if (music.volume < 0.2) {
-                    music.volume = Math.min(0.2, music.volume + fadeStep);
-                } else {
-                    clearInterval(fadeIn);
-                }
-            }, fadeInterval);
-        }
-    </script>
-</body>
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">21:30</p>
+							<h4 class="text-sm font-bold text-frost">Ritiro Auto</h4>
+							<p class="text-xs text-slate-400 mt-1">Ritiro con Green Motion all'aeroporto.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">hotel</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">22:00</p>
+							<h4 class="text-sm font-bold text-frost">Santa Claus Holiday Village</h4>
+							<p class="text-xs text-slate-400 mt-1">Check-in, 2 notti.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">flare</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">22:15</p>
+							<h4 class="text-sm font-bold text-frost">Caccia Aurora</h4>
+							<p class="text-xs text-slate-400 mt-1">Breve passeggiata e caccia all'aurora in zona.</p>
+						</div>
+					</div>
+
+					<img
+						alt="Santa Claus Holiday Village"
+						class="w-full h-32 object-cover rounded-2xl border border-white/10"
+						src="village.jpg"
+					/>
+				</div>
+			</details>
+
+			<details class="group">
+				<summary
+					class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all"
+				>
+					<div class="flex items-center justify-between w-full mb-2">
+						<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 2</span>
+						<span
+							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue"
+						>
+							expand_more
+						</span>
+					</div>
+
+					<h2 class="text-lg font-bold leading-tight mb-1">22 Marzo - Santa Claus Village</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Husky ride, sauna e caccia aurora.</p>
+				</summary>
+
+				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">restaurant</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
+							<h4 class="text-sm font-bold text-frost">Colazione</h4>
+							<p class="text-xs text-slate-400 mt-1">Colazione inclusa nel pernottamento.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">tour</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">Mattina</p>
+							<h4 class="text-sm font-bold text-frost">Santa Claus Village</h4>
+							<p class="text-xs text-slate-400 mt-1">Visita al Santa Claus Village.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">pets</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">13:30</p>
+							<h4 class="text-sm font-bold text-frost">Husky Park</h4>
+							<p class="text-xs text-slate-400 mt-1">Husky Ride meeting Experience HUS-T112835790.</p>
+
+							<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
+								<span class="material-symbols-outlined text-[14px] text-frosty-mint">favorite</span>
+								<span class="text-[10px] italic text-frosty-mint/90">Regalo speciale</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">spa</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">Pomeriggio</p>
+							<h4 class="text-sm font-bold text-frost">Rilassamento</h4>
+							<p class="text-xs text-slate-400 mt-1">Visita al Village e sauna nel cottage.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">flare</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">Sera</p>
+							<h4 class="text-sm font-bold text-frost">Caccia Aurora</h4>
+							<p class="text-xs text-slate-400 mt-1">Post cena: Controllo con app dedicata.</p>
+						</div>
+					</div>
+
+					<img
+						alt="Santa Claus Village"
+						class="w-full h-32 object-cover rounded-2xl border border-white/10"
+						src="SCHV.jpg"
+					/>
+				</div>
+			</details>
+
+			<details class="group">
+				<summary
+					class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all"
+				>
+					<div class="flex items-center justify-between w-full mb-2">
+						<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 3</span>
+						<span
+							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue"
+						>
+							expand_more
+						</span>
+					</div>
+
+					<h2 class="text-lg font-bold leading-tight mb-1">23 Marzo - Wildlife Galaxy</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Ranua Park, Aurora Hut e snowmobile.</p>
+				</summary>
+
+				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">restaurant</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
+							<h4 class="text-sm font-bold text-frost">Colazione</h4>
+							<p class="text-xs text-slate-400 mt-1">Colazione inclusa nel pernottamento.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">flare</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">11:00</p>
+							<h4 class="text-sm font-bold text-frost">Ranua's Arctic Wildlife Park</h4>
+							<p class="text-xs text-slate-400 mt-1">Biglietti prenotati online. Ritirare braccialetti all'ingresso.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">hotel</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">15:00</p>
+							<h4 class="text-sm font-bold text-frost">Nova Galaxy Village</h4>
+							<p class="text-xs text-slate-400 mt-1">Arrivo e check-in Aurora Hut - River Side, 1 notte.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">spa</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">15:30</p>
+							<h4 class="text-sm font-bold text-frost">Sauna e Passeggiate</h4>
+							<p class="text-xs text-slate-400 mt-1">Eventuali attività da valutare sul momento.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">snowmobile</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">21:00</p>
+							<h4 class="text-sm font-bold text-frost">The Night Sky Snowmobile Tour</h4>
+							<p class="text-xs text-slate-400 mt-1">Tour con snowmobile sotto le stelle.</p>
+
+							<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
+								<span class="material-symbols-outlined text-[14px] text-pale-gold">card_giftcard</span>
+								<span class="text-[10px] italic text-pale-gold/90">Regalo speciale</span>
+							</div>
+						</div>
+					</div>
+
+					<img
+						alt="Nova Galaxy"
+						class="w-full h-32 object-cover rounded-2xl border border-white/10"
+						src="nova.jpg"
+					/>
+				</div>
+			</details>
+
+			<details class="group">
+				<summary
+					class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all"
+				>
+					<div class="flex items-center justify-between w-full mb-2">
+						<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 4</span>
+						<span
+							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue"
+						>
+							expand_more
+						</span>
+					</div>
+
+					<h2 class="text-lg font-bold leading-tight mb-1">24 Marzo - Ritorno</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Centro città e volo casa.</p>
+				</summary>
+
+				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">restaurant</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
+							<h4 class="text-sm font-bold text-frost">Colazione e Sauna</h4>
+							<p class="text-xs text-slate-400 mt-1">Colazione inclusa. Post colazione: Sauna e preparazione.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">tour</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">11:00</p>
+							<h4 class="text-sm font-bold text-frost">Check-out e Centro Rovaniemi</h4>
+							<p class="text-xs text-slate-400 mt-1">Check-out e visita in centro Rovaniemi. Valutare Museo Arktikum.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">directions_car</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">17:00</p>
+							<h4 class="text-sm font-bold text-frost">Consegna Auto</h4>
+							<p class="text-xs text-slate-400 mt-1">Consegna con Green Motion in aeroporto.</p>
+						</div>
+					</div>
+
+					<div class="flex gap-4 relative">
+						<div
+							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
+						>
+							<span class="material-symbols-outlined text-ice-blue text-sm">flight_takeoff</span>
+						</div>
+
+						<div>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">18:50</p>
+							<h4 class="text-sm font-bold text-frost">Ryanair - FR 4312</h4>
+							<p class="text-xs text-slate-400 mt-1">Da Rovaniemi a Bergamo. Arrivo 21:45 BGY.</p>
+						</div>
+					</div>
+
+                    <img
+						alt="Artikum"
+						class="w-full h-32 object-cover rounded-2xl border border-white/10"
+						src="artikum.jpg"
+					/>
+				</div>
+			</details>
+
+			<section class="mt-12 mb-10">
+				<div class="p-6 rounded-3xl glass-card">
+					<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+						<span class="material-symbols-outlined text-aurora">backpack</span>
+						Cosa Portare
+					</h3>
+
+					<div class="grid grid-cols-2 gap-x-6 gap-y-4">
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Abbigliamento termico</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Power bank</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Macchina fotografica</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Stivali isolanti</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Guanti caldi</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Calze di lana</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Assicurazione viaggio</span>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+							<span class="text-xs font-medium">Treppiede</span>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="text-center py-8 opacity-40">
+			<p class="text-[10px] font-bold uppercase tracking-[0.3em]">Cherie Rovaniemi</p>
+		</footer>
+
+		<audio id="bgMusic" loop preload="auto">
+			<source src="kh.mp3" type="audio/mpeg" />
+		</audio>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const musicBtn = document.getElementById("musicToggle");
+				const music = document.getElementById("bgMusic");
+				const icon = musicBtn.querySelector('.music-icon');
+				music.volume = 0.2;
+
+				let musicStarted = false;
+
+				async function startMusic() {
+					if (musicStarted) return;
+					musicStarted = true;
+					try {
+						music.volume = 0;
+						await music.play();
+						musicBtn.classList.add("playing");
+						musicBtn.classList.remove("paused");
+						icon.textContent = 'graphic_eq';
+						musicBtn.title = "Disattiva musica";
+						musicBtn.setAttribute('aria-pressed', 'true');
+						fadeInMusic();
+					} catch (err) {
+						console.log("Errore avvio musica:", err.message);
+					}
+				}
+
+				document.addEventListener(
+					"click",
+					() => {
+						startMusic();
+					},
+					{ once: true }
+				);
+
+				function fadeInMusic() {
+					const fadeStep = 0.03;
+					const fadeInterval = 100;
+					const fadeIn = setInterval(() => {
+						if (music.volume < 0.2) {
+							music.volume = Math.min(0.2, music.volume + fadeStep);
+						} else {
+							clearInterval(fadeIn);
+						}
+					}, fadeInterval);
+				}
+
+				musicBtn.addEventListener("click", async (e) => {
+					e.stopPropagation();
+					if (musicBtn.classList.contains("playing")) {
+						fadeOutMusic();
+					} else {
+						try {
+							await music.play();
+							musicBtn.classList.add("playing");
+							musicBtn.classList.remove("paused");
+							icon.textContent = 'graphic_eq';
+							musicBtn.title = "Disattiva musica";
+							musicBtn.setAttribute('aria-pressed', 'true');
+						} catch (err) {
+							console.error("Errore riproduzione musica:", err);
+						}
+					}
+				});
+
+				function fadeOutMusic() {
+					const fadeStep = 0.05;
+					const fadeInterval = 50;
+					const fadeOut = setInterval(() => {
+						if (music.volume > 0) {
+							music.volume = Math.max(0, music.volume - fadeStep);
+						} else {
+							clearInterval(fadeOut);
+							music.pause();
+							musicBtn.classList.remove("playing");
+							musicBtn.classList.add("paused");
+							icon.textContent = 'volume_off';
+							musicBtn.title = "Attiva musica";
+							musicBtn.setAttribute('aria-pressed', 'false');
+							music.volume = 0.2;
+						}
+					}, fadeInterval);
+				}
+			});
+		</script>
+	</body>
 </html>

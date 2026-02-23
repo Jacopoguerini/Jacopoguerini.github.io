@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rovaniemi Itinerary with Gift Credits</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "midnight": "#060a14",
+                        "charcoal": "#111827",
+                        "deep-blue": "#1e293b",
+                        "frost": "#f1f5f9",
+                        "aurora": "#4ade80",
+                        "ice-blue": "#93c5fd",
+                        "pale-gold": "#fde68a",
+                        "frosty-mint": "#ccfbf1",
+                    },
+                    fontFamily: {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --midnight: #060a14;
+            --charcoal: #111827;
+            --deep-blue: #1e293b;
+            --frost: #f1f5f9;
+        }
+        body {
+            background-color: var(--midnight);
+            color: var(--frost);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(74, 222, 128, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sticky-header {
+            background: rgba(6, 10, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .aurora-accent {
+            background: linear-gradient(90deg, #4ade80 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: 20px;
+            width: 1px;
+            background: rgba(147, 197, 253, 0.2);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-sans antialiased pb-12">
+<header class="sticky top-0 z-50 sticky-header px-5 py-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-aurora text-xl">ac_unit</span>
+<h1 class="text-sm font-bold tracking-tight text-frost">Winter Journey: Rovaniemi</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-ice-blue">graphic_eq</span>
+</button>
+</header>
+<main class="px-5 pt-6 space-y-5">
+<div class="relative h-44 w-full rounded-3xl overflow-hidden mb-8 border border-white/10 shadow-2xl">
+<img alt="Santa Claus Village" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAC8gfTUz4FvIgOc6-L03Wwl-uEYx-0hiLzpmoo5M_IHFQiX2yJk67XFVm9dI20_Ljz90wxNPFmg2kVJXgR9Wyc3WcMYxqIEoGBlnLza8iXsKtdRxVfn_gSKI8Kvh1rxc6X5PEKQ20gXbkJbFFWF41V9vdJ9DXWpNBw3LeYgILvIplByajzcVi-5IgJOC8xFShEMuBlIGOrkQWSXJnMnjooAZ58VY22-GAoiCtDlGd1TjZFCINXlWTdiJx1Ak9tbNI-oEe2s0kxlSS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent"></div>
+<div class="absolute bottom-4 left-5">
+<span class="text-[10px] font-black uppercase tracking-[0.2em] aurora-accent">Lapland Region</span>
+<p class="text-lg font-bold">Arctic Circle Retreat</p>
+</div>
+</div>
+<details class="group" open="">
+<summary class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all">
+<div class="flex items-center justify-between w-full mb-2">
+<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 1</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue">expand_more</span>
+</div>
+<h2 class="text-lg font-bold leading-tight mb-1">Welcome to the Arctic Circle</h2>
+<p class="text-xs text-slate-400 font-medium group-open:hidden">Arrival at Rovaniemi and settling into your cozy log cabin.</p>
+</summary>
+<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">flight_land</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">09:00</p>
+<h4 class="text-sm font-bold text-frost">Airport Arrival</h4>
+<p class="text-xs text-slate-400 mt-1">Private shuttle transfer to your luxury log cabin in Santa Claus Village.</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">mail</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">14:00</p>
+<h4 class="text-sm font-bold text-frost">Santa's Office Visit</h4>
+<p class="text-xs text-slate-400 mt-1">Visit the official post office and cross the magic Arctic Circle line.</p>
+<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
+<span class="material-symbols-outlined text-[14px] text-pale-gold">card_giftcard</span>
+<span class="text-[10px] italic text-pale-gold/90">Gentilmente offerto da Marco</span>
+</div>
+</div>
+</div>
+<img alt="Lodge" class="w-full h-32 object-cover rounded-2xl border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7TTEVlTQcheGW4d17F3dOe1UGHNeLICrLl8Ltri3D0lGGi5wPJoYv6PrmZcbNUeFDCpnMm76lp_6U_AEO-C1i1Zv22bbROxjoo-V4SstHOnRZtI7KbMpcVhyAeEYwIPIQSusHXrshB8r-N8qoY3etN6_1_E4jduzCifIDK1KXcGini8TQd-fBg9vA5xnvKQC4XYjPVLETQZa8qG30oDNOzluTdcPbd5-w1ESS9bci306vwI0L-ogIYfOEFvcDHyvx5xUSzf5UzI17"/>
+</div>
+</details>
+<details class="group">
+<summary class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all">
+<div class="flex items-center justify-between w-full mb-2">
+<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 2</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue">expand_more</span>
+</div>
+<h2 class="text-lg font-bold leading-tight mb-1">Whispers of the Tundra</h2>
+<p class="text-xs text-slate-400 font-medium group-open:hidden">Speeding across frozen forests with loyal huskies and reindeer.</p>
+</summary>
+<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">pets</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">10:00</p>
+<h4 class="text-sm font-bold text-frost">Husky Sledding</h4>
+<p class="text-xs text-slate-400 mt-1">A thrilling 5km drive through the snowy taiga forest.</p>
+<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
+<span class="material-symbols-outlined text-[14px] text-frosty-mint">favorite</span>
+<span class="text-[10px] italic text-frosty-mint/90">Gentilmente offerto da Elena</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">cruelty_free</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">15:00</p>
+<h4 class="text-sm font-bold text-frost">Reindeer Farm</h4>
+<p class="text-xs text-slate-400 mt-1">Learn about Sami culture and enjoy a peaceful sleigh ride.</p>
+</div>
+</div>
+<img alt="Huskies" class="w-full h-32 object-cover rounded-2xl border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbQ-UYvLNWe8O9qUvxrwnHNtEjpC0DRH1nMc1yFMHiWqoE18Zhvpy5ZEh0HeRNvJtkP7HFc1Xt_YoZ3BgYRN-YeyMBTZdQbDbCNvKMOAL5oA6HQ8wrTIU_fwjtaan2lPjiH9F_Nl323N9K_xVDLxuRZVWSIfSezLhPxpCgU1XrgAf3XnT0eNVOidkXVDQughriTGoSz3_Y2WBZMsS_WFgL1Uv18YGMPOAKnN9cQxnqhRXLV-BkTt4A7lroWFm91OLIyrOg_raJOQ17"/>
+</div>
+</details>
+<details class="group">
+<summary class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all">
+<div class="flex items-center justify-between w-full mb-2">
+<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 3</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue">expand_more</span>
+</div>
+<h2 class="text-lg font-bold leading-tight mb-1">Stargazing &amp; Aurora Hunting</h2>
+<p class="text-xs text-slate-400 font-medium group-open:hidden">A night under the stars in a premium glass igloo hut.</p>
+</summary>
+<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">bed</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">16:00</p>
+<h4 class="text-sm font-bold text-frost">Glass Igloo Check-in</h4>
+<p class="text-xs text-slate-400 mt-1">Luxury accommodation with panoramic views of the night sky.</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">flare</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">21:00</p>
+<h4 class="text-sm font-bold text-frost">Aurora Safari</h4>
+<p class="text-xs text-slate-400 mt-1">Chasing the Northern Lights with a professional photographer.</p>
+<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
+<span class="material-symbols-outlined text-[14px] text-pale-gold">card_giftcard</span>
+<span class="text-[10px] italic text-pale-gold/90">Gentilmente offerto da Studio Aurora</span>
+</div>
+</div>
+</div>
+<img alt="Glass Igloo" class="w-full h-32 object-cover rounded-2xl border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgHSCvAW6OkeRaIzUt3Wzd102kdzlb6knTTtphTDCjpfqSw1cGdss3cu8oXTbEePaqzzBArLemsjUJs25uRA4m-YDp1p0xvyUZFZR_rq8EwZUGbjQC8ZvyXo2YDrMknmenCI3IA44B6fDXkiKqfjzAN2uzUVY40PqQ_gpptyYD_mEP9RPMm-d7-I5zcrvLihP4yg5ebRDeK-8gLojQkDkDu6trEpoyRvm92PoZlTYi97kQOBYB8MLZz2w1VpPWfz_MduHLG4ZOlVw7"/>
+</div>
+</details>
+<details class="group">
+<summary class="flex flex-col p-5 rounded-3xl glass-card cursor-pointer active:scale-[0.99] transition-all">
+<div class="flex items-center justify-between w-full mb-2">
+<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 4</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue">expand_more</span>
+</div>
+<h2 class="text-lg font-bold leading-tight mb-1">Farewell to Lapland</h2>
+<p class="text-xs text-slate-400 font-medium group-open:hidden">Final souvenirs and flight departure from the Arctic.</p>
+</summary>
+<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">shopping_basket</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">10:00</p>
+<h4 class="text-sm font-bold text-frost">Artic Design Shopping</h4>
+<p class="text-xs text-slate-400 mt-1">Browsing local handicrafts and Lappish berry treats.</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-ice-blue text-sm">flight_takeoff</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-aurora mb-0.5">14:00</p>
+<h4 class="text-sm font-bold text-frost">Departure</h4>
+<p class="text-xs text-slate-400 mt-1">Airport shuttle for your homeward bound journey.</p>
+</div>
+</div>
+</div>
+</details>
+<section class="mt-12 mb-10">
+<div class="p-6 rounded-3xl glass-card">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-aurora">backpack</span>
+                    Essential Gear
+                </h3>
+<div class="grid grid-cols-2 gap-x-6 gap-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Thermal layers</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Power bank</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">DSLR Camera</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Insulated boots</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Warm mittens</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Woolen socks</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Travel Insurance</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ice-blue text-lg">check_circle</span>
+<span class="text-xs font-medium">Tripod</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="text-center py-8 opacity-40">
+<p class="text-[10px] font-bold uppercase tracking-[0.3em]">Arctic Horizon Journeys</p>
+</footer>
+
+</body></html>
