@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Anni Cherie - Rovaniemi</title>
+    <style>
+          :root {
+            --primary-bg: linear-gradient(135deg, #1e1b4b 0%, #0f0f23 50%, #1a1a2e 100%);
+            --card-bg: rgba(30, 27, 75, 0.95);
+            --accent-aurora: #c084fc; /* Viola aurora */
+            --accent-ice: #60a5fa; /* Azzurro ghiaccio */
+            --accent-snow: #f8fafc;
+            --accent-fire: #f87171; /* Rosso fuoco boreale */
+            --text-light: #f1f5f9;
+            --shadow-lg: 0 25px 50px rgba(0,0,0,0.6);
+            --border-glow: 1px solid rgba(192, 132, 252, 0.4);
+          }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15,23,42,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: var(--border-glow);
+            padding: 1rem 1.5rem;
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .logo-box {
+          display: flex;
+          flex-direction: column; /* Verticale per stack testo/sub */
+          align-items: flex-start; /* Allineato a sinistra */
+          gap: 0.25rem;
+        }
+        .logo-text {
+          font-weight: 900;
+          font-size: 1.3rem;
+          background: linear-gradient(135deg, #fef3c7, #fac915);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .logo-sub {
+          font-size: 0.8rem;
+          opacity: 0.9;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: 600;
+        }
+        .music-btn {
+          width: 44px;
+          height: 44px;
+          border: none;
+          background: none; /* Nessun sfondo */
+          color: #fef3c7; /* Colore chiaro (oro chiaro) */
+          font-size: 1.2rem;
+          opacity: 0.6; /* Semi-trasparente di base */
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: opacity 0.3s ease, color 0.3s ease;
+          box-shadow: none; /* Nessuna ombra */
+          backdrop-filter: none;
+        }
+        .music-btn:hover, .music-btn.playing {
+          opacity: 1;
+          color: #fac915; /* Oro più luminoso al hover/playing */
+        }
+        .hero {
+            text-align: center;
+            padding: 3rem 1.5rem 2.5rem;
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(254,243,199,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 7vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fef3c7, #facc15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.95;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .day-tabs {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .day-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        .day-tab {
+            flex: 0 0 auto;
+            padding: 1rem 1.25rem;
+            background: rgba(15,23,42,0.8);
+            border: 2px solid rgba(254,243,199,0.2);
+            border-radius: 25px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            backdrop-filter: blur(12px);
+            min-width: 110px;
+            position: relative;
+        }
+        .day-tab.active {
+            background: linear-gradient(135deg, rgba(250,204,21,0.25), rgba(15,23,42,0.9));
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(250,204,21,0.3);
+        }
+        .day-num {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .day-label {
+            font-size: 0.75rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .day-hero {
+            height: 40vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin: 1rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+        .day-hero.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .day-hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(20, 30, 53, 0.9));
+            padding: 2rem 1.5rem 1.5rem;
+            border-radius: 20px;
+            z-index: 2;
+        }
+        .day-hero-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .day-hero-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .day-hero-title,
+        .day-hero-subtitle {
+            position: relative;
+            z-index: 2;  /* Testi esplicitamente davanti */
+        }
+        .day-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.507); /* Opacità media scura, regola il 0.6 come preferisci (0.4-0.8) */
+            border-radius: 20px;
+            z-index: 1;
+        }
+        .itinerario-section {
+            padding: 1.5rem 1.5rem 3rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #facc15, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tappa-card {
+            background: var(--card-bg);
+            border: var(--border-glow);
+            border-radius: 20px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            position: relative; /* Per overlay */
+            background-size: cover !important; /* Per immagini */
+            background-position: center;
+        }
+        .tappa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(0, 0, 0, 0.7)); /* Overlay scuro sfumato */
+            border-radius: inherit;
+            z-index: 1;
+            backdrop-filter: blur(2px); /* Leggero sfocato per profondità */
+            }
+        .tappa-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .tappa-card.active {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(250,204,21,0.4);
+        }
+        .tappa-head {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tappa-head, .tappa-body {
+            position: relative;
+            z-index: 2; /* Testi sopra overlay */
+            }
+        .tappa-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        .expand-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            opacity: 0.8;
+        }
+        .tappa-card.active .expand-icon {
+            transform: rotate(180deg);
+        }
+        .tappa-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+        }
+        .tappa-card.active .tappa-body {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+        .tappa-note {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .tappa-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .tag {
+          padding: 0.4rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          transition: all 0.3s ease;
+        }
+        .tag.volo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .tag.noleggio, .tag.auto { background: linear-gradient(135deg, #eab308, #ca8a04); color: white; }
+        .tag.pernottamento, .tag.colazione { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .tag.aurora { background: linear-gradient(135deg, #ec4899, #be185d); color: white; }
+        .tag.turismo { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+        .tag.attivita, .tag.husky, .tag.avventura, .tag.snowmobile, .tag.parco { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .tag.relax { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
+        .tag.animali { background: linear-gradient(135deg, #84cc16, #65a30d); color: white; }
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            opacity: 0.8;
+            font-size: 0.95rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(250, 204, 21, 0.3);
+            border-top: 4px solid #facc15;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            .day-hero {
+                height: 30vh;
+                margin: 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo-box">
+              <div class="logo-text">Cherie Rovaniemi</div>
+              <div class="logo-sub">30 Anni</div>
+            </div>
+            <button class="music-btn" id="musicToggle" title="Attiva musica">🎵</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Lapponia Magica</h1>
+        <p>Santa Claus Village, Husky, Aurora Boreale - Celebriamo i 30 anni!</p>
+    </section>
+
+    <div class="day-tabs">
+        <button class="day-tab active" data-day="1">
+            <span class="day-num">21</span>
+            <span class="day-label">Arrivo</span>
+        </button>
+        <button class="day-tab" data-day="2">
+            <span class="day-num">22</span>
+            <span class="day-label">Village</span>
+        </button>
+        <button class="day-tab" data-day="3">
+            <span class="day-num">23</span>
+            <span class="day-label">Wildlife</span>
+        </button>
+        <button class="day-tab" data-day="4">
+            <span class="day-num">24</span>
+            <span class="day-label">Ritorno</span>
+        </button>
+    </div>
+
+    <section class="day-hero" id="dayHero"></section>
+
+    <section class="itinerario-section">
+        <h2 class="section-title">Itinerario Dettagliato</h2>
+        <div id="itineraryContent">
+            <!-- Dinamico via JS -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Viaggio pronto per Cherie ❤️</p>
+    </footer>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const ITINERARY = {
+        1: [
+            { title: "Ryanair - FR 4311", note: "Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Partenza 16:20 BGY, Arrivo 21:15 RVN.", tags: ["Volo", "Ryanair"] },
+            { title: "Ritiro Auto", note: "Ritiro alle 21:30 con Green Motion all'aeroporto.", tags: ["Noleggio"] },
+            { title: "Santa Claus Holiday Village", note: "Check-in alle 22:00, 2 notti.", tags: ["Pernottamento"] },
+            { title: "Caccia Aurora", note: "Alle 22:15 Breve passeggiata e caccia all'aurora in zona. Da valutare sul momento.", tags: ["Aurora"] }
+        ],
+        // ... Aggiungi qui gli altri giorni dal file originale se necessario, ma per test usa questo minimale
+        2: [{ title: "Test Giorno 2", note: "Funziona!", tags: ["Test"] }],
+        3: [{ title: "Test Giorno 3", note: "Funziona!", tags: ["Test"] }],
+        4: [{ title: "Test Giorno 4", note: "Funziona!", tags: ["Test"] }]
+        };
+
+        const DAYHEROS = {
+        1: { bg: "rovaniemi.jpg", title: "21 Marzo - Arrivo Rovaniemi", subtitle: "Volo, auto e prime luci boreali al Village" },
+        2: { bg: "SCHV.jpg", title: "22 Marzo - Santa Claus Village", subtitle: "Husky ride, sauna e caccia aurora" },
+        3: { bg: "nova.jpg", title: "23 Marzo - Wildlife Galaxy", subtitle: "Ranua Park, Aurora Hut e snowmobile" },
+        4: { bg: "artikum.jpg", title: "24 Marzo - Ritorno", subtitle: "Centro città e volo casa" }
+        };
+
+        const tabs = document.querySelectorAll('.day-tab');
+        const content = document.getElementById('itineraryContent');
+        const dayHero = document.getElementById('dayHero');
+        const musicBtn = document.getElementById('musicToggle');
+        const music = document.getElementById('bgMusic');
+        let activeDay = 1;
+
+        function renderContent(day) {
+        const items = ITINERARY[day];
+        content.innerHTML = items.map((item, i) => `
+            <div class="tappa-card" style="background-image: url('${item.image || ''}')" onclick="toggleCard(this)">
+            <div class="tappa-head">
+                <div class="tappa-title">${item.title}</div>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="tappa-body">
+                <div class="tappa-note">${item.note}</div>
+                <div class="tappa-tags">${item.tags.map(tag => `<span class="tag ${tag.toLowerCase()}">${tag}</span>`).join('')}</div>
+            </div>
+            </div>
+        `).join('');
+        
+        const heroData = DAYHEROS[day];
+        dayHero.style.backgroundImage = `url(${heroData.bg})`;
+        dayHero.innerHTML = `
+            <div class="day-hero-overlay">
+            <div class="day-hero-title">${heroData.title}</div>
+            <div class="day-hero-subtitle">${heroData.subtitle}</div>
+            </div>
+        `;
+        dayHero.classList.add('active');
+        }
+
+        function toggleCard(card) {
+        card.classList.toggle('active');
+        }
+
+        tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeDay = parseInt(tab.dataset.day);
+            renderContent(activeDay);
+        });
+        });
+
+        musicBtn.addEventListener('click', async () => {
+        if (musicBtn.classList.contains('playing')) {
+            music.pause();
+            musicBtn.classList.remove('playing');
+            musicBtn.title = 'Attiva musica';
+        } else {
+            try {
+            await music.play();
+            musicBtn.classList.add('playing');
+            musicBtn.title = 'Disattiva musica';
+            } catch (err) {
+            console.error('Errore riproduzione musica:', err);
+            }
+        }
+        });
+
+        // Init
+        renderContent(1);
+        music.volume = 0.3;
+    </script>
+</body>
+</html>
