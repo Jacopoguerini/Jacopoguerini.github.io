@@ -491,6 +491,20 @@
 			transition: all 0.2s ease;
 		}
 
+		/* Inline link for notes */
+		.link-inline {
+			display: inline;
+			padding: 0;
+			margin-left: 4px;
+			border-radius: 0;
+			background: transparent;
+			border: 0;
+			color: rgba(147, 197, 253, 0.9);
+			text-decoration: underline;
+			text-underline-offset: 3px;
+			text-decoration-color: rgba(147, 197, 253, 0.4);
+		}
+
 		.link-pill:active {
 			transform: scale(0.96);
 			opacity: 0.85;
@@ -845,7 +859,7 @@
 								<span class="text-ice-blue/30">•</span>
 								<a class="link-pill" href="https://novagalaxyvillage.fi/" target="_blank" rel="noopener">Sito</a>
 							</div>
-							<p class="mt-2 text-[10px] text-slate-400">Nota: sarà possibile cenare presso il ristorante della struttura</p>
+							<p class="mt-2 text-[10px] text-slate-400">Nota: sarà possibile cenare presso il ristorante della struttura prenotando una volta arrivati.<a class="link-pill link-inline" href="https://www.novagalaxyvillage.com/restaurant" target="_blank" rel="noopener">Scopri il ristorante</a></p>
 						</div>
 					</div>
 
@@ -932,7 +946,7 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">11:00</p>
 							<h4 class="text-sm font-bold text-frost">Check-out e Centro Rovaniemi</h4>
-							<p class="text-xs text-slate-400 mt-1">Check-out e visita in centro. Valutabile una gita al museo Arktikum.</p>
+							<p class="text-xs text-slate-400 mt-1">Check-out e visita in centro.</br>Si può valutare una gita al museo Arktikum.</p>
 							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
 								<a class="link-pill" href="https://maps.google.com/?q=Rovaniemi+centrum" target="_blank" rel="noopener">Mappa</a>
 								<span class="text-ice-blue/30">•</span>
@@ -971,11 +985,6 @@
 							<p class="text-[10px] font-bold text-aurora mb-0.5">18:50</p>
 							<h4 class="text-sm font-bold text-frost">Ryanair - FR 4312</h4>
 							<p class="text-xs text-slate-400 mt-1">Volo diretto da Rovaniemi a Bergamo. Arrivo 21:45 (BGY).</p>
-							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
-								<a class="link-pill" href="https://maps.google.com/?q=Rovaniemi+Airport" target="_blank" rel="noopener">Mappa</a>
-								<span class="text-ice-blue/30">•</span>
-								<a class="link-pill" href="https://www.ryanair.com/" target="_blank" rel="noopener">Sito</a>
-							</div>
 						</div>
 					</div>
 
