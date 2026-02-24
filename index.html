@@ -95,7 +95,14 @@
 				top: 40px;
 				bottom: 20px;
 				width: 1px;
-				background: rgba(147, 197, 253, 0.2);
+				background: rgba(147, 197, 253, 0.12);
+			}
+
+			.event-card {
+				padding: 12px;
+				border-radius: 18px;
+				background: rgba(15, 23, 42, 0.35);
+				border: 1px solid rgba(255, 255, 255, 0.06);
 			}
 
 			.splash-active {
@@ -256,7 +263,7 @@
 		>
 			<div class="flex items-center gap-2">
 				<span class="material-symbols-outlined text-aurora text-xl">ac_unit</span>
-				<h1 class="text-sm font-bold tracking-tight text-frost">Cherie Rovaniemi</h1>
+				<h1 class="text-sm font-bold tracking-tight text-frost">Il Tuo 30°</h1>
 			</div>
 
 			<button
@@ -281,7 +288,7 @@
 				<div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
 				<div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none"></div>
 				<div class="absolute bottom-4 left-5">
-					<span class="text-[10px] font-black uppercase tracking-[0.2em] aurora-accent">Lapland Region</span>
+					<span class="text-[10px] font-black uppercase tracking-[0.2em] aurora-accent">Lapponia Cherica</span>
 					<p class="text-lg font-bold">Arctic Circle Retreat</p>
 				</div>
 			</div>
@@ -299,12 +306,12 @@
 						</span>
 					</div>
 
-					<h2 class="text-lg font-bold leading-tight mb-1">21 Marzo - Arrivo Rovaniemi</h2>
-					<p class="text-xs text-slate-400 font-medium group-open:hidden">Volo, auto e prime luci boreali al Village.</p>
+					<h2 class="text-lg font-bold leading-tight mb-1">21 Marzo - Arrivo a Rovaniemi</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Volo, ritiro auto e check-in al Village.</p>
 				</summary>
 
 				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -314,11 +321,11 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">16:20</p>
 							<h4 class="text-sm font-bold text-frost">Ryanair - FR 4311</h4>
-							<p class="text-xs text-slate-400 mt-1">Da Bergamo a Rovaniemi. Volo senza scali 3 ore e 55 minuti. Arrivo 21:15 RVN.</p>
+							<p class="text-xs text-slate-400 mt-1">Volo diretto da Bergamo a Rovaniemi. Arrivo 21:15 (RVN).</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -327,12 +334,17 @@
 
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">21:30</p>
-							<h4 class="text-sm font-bold text-frost">Ritiro Auto</h4>
-							<p class="text-xs text-slate-400 mt-1">Ritiro con Green Motion all'aeroporto.</p>
+							<h4 class="text-sm font-bold text-frost">Ritiro auto</h4>
+							<p class="text-xs text-slate-400 mt-1">Ritiro allo stand di Green Motion in aeroporto.</p>
+							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.app.goo.gl/hYNuAt1mhpEBbi2U6" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://greenmotion.com/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -342,11 +354,16 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">22:00</p>
 							<h4 class="text-sm font-bold text-frost">Santa Claus Holiday Village</h4>
-							<p class="text-xs text-slate-400 mt-1">Check-in, 2 notti.</p>
+							<p class="text-xs text-slate-400 mt-1">Check-in e sistemazione per 2 notti.</p>
+							<div class="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.app.goo.gl/YfTP4VGuVR6yUUB2A" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://www.santaclausholidayvillage.com/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -355,8 +372,8 @@
 
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">22:15</p>
-							<h4 class="text-sm font-bold text-frost">Caccia Aurora</h4>
-							<p class="text-xs text-slate-400 mt-1">Breve passeggiata e caccia all'aurora in zona.</p>
+							<h4 class="text-sm font-bold text-frost">Relax serale</h4>
+							<p class="text-xs text-slate-400 mt-1">Passeggiata serale e sauna in cottage.</p>
 						</div>
 					</div>
 
@@ -375,18 +392,17 @@
 					<div class="flex items-center justify-between w-full mb-2">
 						<span class="text-[10px] font-bold text-ice-blue/60 uppercase tracking-widest">Day 2</span>
 						<span
-							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue"
-						>
+							class="material-symbols-outlined transition-transform group-open:rotate-180 text-ice-blue">
 							expand_more
 						</span>
 					</div>
 
 					<h2 class="text-lg font-bold leading-tight mb-1">22 Marzo - Santa Claus Village</h2>
-					<p class="text-xs text-slate-400 font-medium group-open:hidden">Husky ride, sauna e caccia aurora.</p>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Husky ride, visita al Village e relax.</p>
 				</summary>
 
 				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -396,11 +412,11 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
 							<h4 class="text-sm font-bold text-frost">Colazione</h4>
-							<p class="text-xs text-slate-400 mt-1">Colazione inclusa nel pernottamento.</p>
+							<p class="text-xs text-slate-400 mt-1">Colazione al ristorante del Village.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -410,11 +426,16 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">Mattina</p>
 							<h4 class="text-sm font-bold text-frost">Santa Claus Village</h4>
-							<p class="text-xs text-slate-400 mt-1">Visita al Santa Claus Village.</p>
+							<p class="text-xs text-slate-400 mt-1">Passeggiata tra negozi, posta di Babbo Natale e artigianato locale.</p>
+							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.app.goo.gl/R1FcBPyw561jVCfy5" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://www.santaclausvillage.info/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -424,16 +445,22 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">13:30</p>
 							<h4 class="text-sm font-bold text-frost">Husky Park</h4>
-							<p class="text-xs text-slate-400 mt-1">Husky Ride meeting Experience HUS-T112835790.</p>
+							<p class="text-xs text-slate-400 mt-1">Husky Ride & Meeting Experience.</p>
+							<div class="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.google.com/?q=Husky+Park+Rovaniemi" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://huskypark.fi/" target="_blank" rel="noopener">Sito</a>
+							</div>
+							<p class="mt-2 text-[10px] text-slate-400">Nota: prenotazione HUS-T112835790</p>
 
 							<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
-								<span class="material-symbols-outlined text-[14px] text-frosty-mint">favorite</span>
-								<span class="text-[10px] italic text-frosty-mint/90">Regalo speciale</span>
+								<span class="material-symbols-outlined text-[14px] text-pale-gold">card_giftcard</span>
+								<span class="text-[10px] italic text-pale-gold/90">Regalo speciale</span>
 							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -442,22 +469,22 @@
 
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">Pomeriggio</p>
-							<h4 class="text-sm font-bold text-frost">Rilassamento</h4>
-							<p class="text-xs text-slate-400 mt-1">Visita al Village e sauna nel cottage.</p>
+							<h4 class="text-sm font-bold text-frost">Relax</h4>
+							<p class="text-xs text-slate-400 mt-1">Tempo libero al Village e sauna in cottage.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
-						>
+							>
 							<span class="material-symbols-outlined text-ice-blue text-sm">flare</span>
 						</div>
 
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">Sera</p>
 							<h4 class="text-sm font-bold text-frost">Caccia Aurora</h4>
-							<p class="text-xs text-slate-400 mt-1">Post cena: Controllo con app dedicata.</p>
+							<p class="text-xs text-slate-400 mt-1">Serata libera: giro in auto, passeggiata e osservazione dell'aurora.</p>
 						</div>
 					</div>
 
@@ -482,12 +509,12 @@
 						</span>
 					</div>
 
-					<h2 class="text-lg font-bold leading-tight mb-1">23 Marzo - Wildlife Galaxy</h2>
-					<p class="text-xs text-slate-400 font-medium group-open:hidden">Ranua Park, Aurora Hut e snowmobile.</p>
+					<h2 class="text-lg font-bold leading-tight mb-1">23 Marzo - Ranua e Galaxy Village</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Visita al Ranua Park, check-in al Galaxy Village e snowmobile sotto le stelle.</p>
 				</summary>
 
 				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -497,11 +524,11 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
 							<h4 class="text-sm font-bold text-frost">Colazione</h4>
-							<p class="text-xs text-slate-400 mt-1">Colazione inclusa nel pernottamento.</p>
+							<p class="text-xs text-slate-400 mt-1">Colazione al Village prima della partenza.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -511,11 +538,17 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">11:00</p>
 							<h4 class="text-sm font-bold text-frost">Ranua's Arctic Wildlife Park</h4>
-							<p class="text-xs text-slate-400 mt-1">Biglietti prenotati online. Ritirare braccialetti all'ingresso.</p>
+							<p class="text-xs text-slate-400 mt-1">Ingresso al parco faunistico.</p>
+							<div class="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.app.goo.gl/4oy9vfwr4EJ1foyq6" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://ranuaresort.com/" target="_blank" rel="noopener">Sito</a>
+							</div>
+							<p class="mt-2 text-[10px] text-slate-400">Nota: è necessario ritirare i braccialetti all'ingresso per accedere.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -523,13 +556,19 @@
 						</div>
 
 						<div>
-							<p class="text-[10px] font-bold text-aurora mb-0.5">15:00</p>
+							<p class="text-[10px] font-bold text-aurora mb-0.5">Dalle 15:00</p>
 							<h4 class="text-sm font-bold text-frost">Nova Galaxy Village</h4>
-							<p class="text-xs text-slate-400 mt-1">Arrivo e check-in Aurora Hut - River Side, 1 notte.</p>
+							<p class="text-xs text-slate-400 mt-1">Arrivo e check-in nella Aurora Hut - River Side.</p>
+							<div class="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.google.com/?q=Nova+Galaxy+Village" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://novagalaxyvillage.fi/" target="_blank" rel="noopener">Sito</a>
+							</div>
+							<p class="mt-2 text-[10px] text-slate-400">Nota: sarà possibile cenare presso il ristorante della struttura</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -539,11 +578,11 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">15:30</p>
 							<h4 class="text-sm font-bold text-frost">Sauna e Passeggiate</h4>
-							<p class="text-xs text-slate-400 mt-1">Eventuali attività da valutare sul momento.</p>
+							<p class="text-xs text-slate-400 mt-1">Sauna e passeggiata nei dintorni.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -553,7 +592,7 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">21:00</p>
 							<h4 class="text-sm font-bold text-frost">The Night Sky Snowmobile Tour</h4>
-							<p class="text-xs text-slate-400 mt-1">Tour con snowmobile sotto le stelle.</p>
+							<p class="text-xs text-slate-400 mt-1">Tour in snowmobile sotto il cielo artico.</p>
 
 							<div class="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 w-fit border border-white/10">
 								<span class="material-symbols-outlined text-[14px] text-pale-gold">card_giftcard</span>
@@ -583,12 +622,12 @@
 						</span>
 					</div>
 
-					<h2 class="text-lg font-bold leading-tight mb-1">24 Marzo - Ritorno</h2>
-					<p class="text-xs text-slate-400 font-medium group-open:hidden">Centro città e volo casa.</p>
+					<h2 class="text-lg font-bold leading-tight mb-1">24 Marzo - Rientro</h2>
+					<p class="text-xs text-slate-400 font-medium group-open:hidden">Centro città, riconsegna auto e volo di rientro.</p>
 				</summary>
 
 				<div class="mt-2 p-5 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 relative timeline-line">
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -598,11 +637,11 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">07:30-10:00</p>
 							<h4 class="text-sm font-bold text-frost">Colazione e Sauna</h4>
-							<p class="text-xs text-slate-400 mt-1">Colazione inclusa. Post colazione: Sauna e preparazione.</p>
+							<p class="text-xs text-slate-400 mt-1">Colazione e ultime ore di relax al Galaxy Village.</p>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -612,11 +651,16 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">11:00</p>
 							<h4 class="text-sm font-bold text-frost">Check-out e Centro Rovaniemi</h4>
-							<p class="text-xs text-slate-400 mt-1">Check-out e visita in centro Rovaniemi. Valutare Museo Arktikum.</p>
+							<p class="text-xs text-slate-400 mt-1">Check-out e visita in centro. Valutabile una gita al museo Arktikum.</p>
+							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.google.com/?q=Rovaniemi+centrum" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://www.arktikum.fi/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -626,11 +670,16 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">17:00</p>
 							<h4 class="text-sm font-bold text-frost">Consegna Auto</h4>
-							<p class="text-xs text-slate-400 mt-1">Consegna con Green Motion in aeroporto.</p>
+							<p class="text-xs text-slate-400 mt-1">Consegna allo stand Green Motion in aeroporto.</p>
+							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.google.com/?q=Green+Motion+Rovaniemi" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://greenmotion.com/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
-					<div class="flex gap-4 relative">
+					<div class="flex gap-4 relative event-card">
 						<div
 							class="w-10 h-10 rounded-full bg-charcoal border border-ice-blue/20 flex items-center justify-center shrink-0 z-10"
 						>
@@ -640,7 +689,12 @@
 						<div>
 							<p class="text-[10px] font-bold text-aurora mb-0.5">18:50</p>
 							<h4 class="text-sm font-bold text-frost">Ryanair - FR 4312</h4>
-							<p class="text-xs text-slate-400 mt-1">Da Rovaniemi a Bergamo. Arrivo 21:45 BGY.</p>
+							<p class="text-xs text-slate-400 mt-1">Volo diretto da Rovaniemi a Bergamo. Arrivo 21:45 (BGY).</p>
+							<div class="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-ice-blue/80">
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://maps.google.com/?q=Rovaniemi+Airport" target="_blank" rel="noopener">Mappa</a>
+								<span class="text-ice-blue/30">•</span>
+								<a class="text-ice-blue/90 underline underline-offset-4 hover:text-ice-blue" href="https://www.ryanair.com/" target="_blank" rel="noopener">Sito</a>
+							</div>
 						</div>
 					</div>
 
@@ -709,7 +763,7 @@
 		</footer>
 
 		<audio id="bgMusic" loop preload="auto">
-			<source src="kh.mp3" type="audio/mpeg" />
+			<source src="fr.mp3" type="audio/mpeg" />
 		</audio>
 
 		<script>
