@@ -376,16 +376,6 @@
 				}
 			}
 
-			@keyframes itemFadeIn {
-				0% {
-					opacity: 0;
-					transform: translateY(-10px);
-				}
-				100% {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
 
 			@keyframes borderGlow {
 				0%, 100% {
@@ -409,11 +399,6 @@
 				animation: slideDown 0.6s ease-out;
 			}
 
-		/* Uniform animation for event cards inside open accordion */
-		.accordion-content-animated .event-card {
-			animation: itemFadeIn 0.5s ease-out both;
-		}
-
 		/* Enhanced spacing in open accordion */
 		details[open] .timeline-line {
 			padding-top: 8px;
@@ -421,11 +406,6 @@
 
 		details[open] .event-card {
 			margin-bottom: 4px;
-		}
-
-		/* Animate images in open accordion */
-		.accordion-content-animated img {
-			animation: itemFadeIn 0.5s ease-out both;
 		}
 
 		/* Checklist items styling */
@@ -1146,6 +1126,11 @@
 									// Force reflow
 									void timeline.offsetWidth;
 									timeline.classList.add('accordion-content-animated');
+								}
+							} else {
+								const timeline = this.querySelector('.timeline-line');
+								if (timeline) {
+									timeline.classList.remove('accordion-content-animated');
 								}
 							}
 						});
