@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta name="theme-color" content="#060a14" />
         <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234ade80'/%3E%3Cstop offset='100%25' stop-color='%2393c5fd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='%23060a14' stroke='url(%23g)' stroke-width='2'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif' font-weight='800' font-size='24' fill='%234ade80'%3E30%3C/text%3E%3C/svg%3E">
 
 		<title>Il tuo 30° - Rovaniemi</title>
@@ -62,6 +63,45 @@
 					);
 			}
 
+			/* Aurora background blobs */
+			.aurora-bg {
+				position: fixed;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+				overflow: hidden;
+			}
+
+			.aurora-blob {
+				position: absolute;
+				border-radius: 50%;
+				filter: blur(80px);
+				will-change: opacity;
+			}
+
+			.aurora-blob-1 {
+				width: 350px;
+				height: 350px;
+				top: 10%;
+				left: -10%;
+				background: rgba(74, 222, 128, 0.19);
+				animation: auroraPulse 8s ease-in-out infinite;
+			}
+
+			.aurora-blob-2 {
+				width: 300px;
+				height: 300px;
+				bottom: 20%;
+				right: -8%;
+				background: rgba(147, 197, 253, 0.15);
+				animation: auroraPulse 10s ease-in-out 3s infinite;
+			}
+
+			@keyframes auroraPulse {
+				0%, 100% { opacity: 0.35; }
+				50% { opacity: 0.75; }
+			}
+
 			details > summary {
 				list-style: none;
 				transition: all 0.2s ease;
@@ -85,6 +125,8 @@
 
 			.glass-card:active {
 				transform: scale(0.99);
+				border-color: rgba(147, 197, 253, 0.35);
+				box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 12px rgba(147, 197, 253, 0.1);
 			}
 
 			.sticky-header {
@@ -480,7 +522,8 @@
 			display: inline-flex;
 			align-items: center;
 			gap: 6px;
-			padding: 2px 8px;
+			padding: 6px 12px;
+			min-height: 32px;
 			border-radius: 999px;
 			font-size: 10px;
 			font-weight: 600;
@@ -512,6 +555,9 @@
 	</style>
 
 	<style>
+		html {
+			scroll-behavior: smooth;
+		}
 		body {
 			min-height: max(884px, 100dvh);
 		}
@@ -519,6 +565,11 @@
 	</head>
 
 	<body class="font-sans antialiased pb-12 splash-active">
+		<!-- Aurora background -->
+		<div class="aurora-bg" aria-hidden="true">
+			<div class="aurora-blob aurora-blob-1"></div>
+			<div class="aurora-blob aurora-blob-2"></div>
+		</div>
 		<div class="splash-overlay active splash-content" id="splashOverlay" aria-label="Apri itinerario" role="button">
 			<div class="splash-background" style='background-image: url("screen.png");'></div>
 			<div class="absolute inset-0 pointer-events-none overflow-hidden z-20">
@@ -580,12 +631,57 @@
 				</div>
 			</div>
 
+			<!-- Countdown -->
+			<div class="py-4" id="countdownSection">
+				<p class="text-[10px] text-center text-slate-400 uppercase tracking-widest font-semibold mb-3">Partenza tra</p>
+				<div class="flex items-center justify-center gap-2">
+					<div class="flex flex-col items-center">
+						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+							<span class="text-xl font-bold text-frost tabular-nums" id="cdDays">--</span>
+						</div>
+						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">GIORNI</span>
+					</div>
+					<span class="text-lg font-light text-slate-500 mb-4">:</span>
+					<div class="flex flex-col items-center">
+						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+							<span class="text-xl font-bold text-frost tabular-nums" id="cdHours">--</span>
+						</div>
+						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">ORE</span>
+					</div>
+					<span class="text-lg font-light text-slate-500 mb-4">:</span>
+					<div class="flex flex-col items-center">
+						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+							<span class="text-xl font-bold text-frost tabular-nums" id="cdMins">--</span>
+						</div>
+						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">MIN</span>
+					</div>
+					<span class="text-lg font-light text-slate-500 mb-4">:</span>
+					<div class="flex flex-col items-center">
+						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+							<span class="text-xl font-bold text-aurora tabular-nums" id="cdSecs">--</span>
+						</div>
+						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">SEC</span>
+					</div>
+				</div>
+			</div>
+
 			<div class="mb-6 mt-8">
 				<h2 class="text-xl font-bold text-frost mb-1 flex items-center gap-2">
 					<span class="material-symbols-outlined text-aurora text-xl">calendar_month</span>
 					Itinerario di Viaggio
 				</h2>
 				<p class="text-xs text-slate-400 ml-8">Dal 21 al 24 Marzo 2026</p>
+
+				<div class="mt-4 flex items-center justify-center gap-4">
+					<span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10">
+						<div class="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-midnight shrink-0" style="background: linear-gradient(135deg, #93c5fd, #c4b5fd);">CM</div>
+						<span class="text-xs font-medium text-frost">Claudia Merati</span>
+					</span>
+					<span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10">
+						<div class="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-midnight shrink-0" style="background: linear-gradient(135deg, #4ade80, #93c5fd);">JG</div>
+						<span class="text-xs font-medium text-frost">Jacopo Guerini</span>
+					</span>
+				</div>
 			</div>
 
 			<details class="group">
@@ -679,6 +775,7 @@
 						alt="Santa Claus Holiday Village"
 						class="w-full h-32 object-cover rounded-2xl accordion-image"
 						src="village.jpg"
+						loading="lazy"
 					/>
 				</div>
 			</details>
@@ -790,6 +887,7 @@
 						alt="Santa Claus Village"
 						class="w-full h-32 object-cover rounded-2xl accordion-image"
 						src="SCHV.jpg"
+						loading="lazy"
 					/>
 				</div>
 			</details>
@@ -903,6 +1001,7 @@
 						alt="Nova Galaxy"
 						class="w-full h-32 object-cover rounded-2xl accordion-image"
 						src="nova.jpg"
+						loading="lazy"
 					/>
 				</div>
 			</details>
@@ -998,6 +1097,7 @@
 						alt="Artikum"
 						class="w-full h-32 object-cover rounded-2xl accordion-image"
 						src="artikum.jpg"
+						loading="lazy"
 					/>
 				</div>
 			</details>
@@ -1047,10 +1147,94 @@
 					</div>
 				</div>
 			</section>
+
+			<section class="mb-10">
+				<div class="p-6 rounded-3xl glass-card">
+					<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+						<span class="material-symbols-outlined text-rose-300/90">restaurant</span>
+						Pasti
+					</h3>
+
+					<p class="text-sm text-rose-100/90 bg-rose-400/10 border border-rose-300/30 rounded-2xl p-4">
+						I pasti non sono ancora stati prenotati, verranno decisi in loco in base alla zona in cui saremo e alle voglie del momento.
+					</p>
+				</div>
+			</section>
+
+			<!-- Meteo -->
+			<section class="mb-10">
+				<div class="p-5 rounded-3xl glass-card">
+					<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+						<span class="material-symbols-outlined text-ice-blue/80">ac_unit</span>
+						Clima
+					</h3>
+					<div class="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/8">
+						<span class="material-symbols-outlined text-ice-blue/70 text-3xl">thermostat</span>
+						<div>
+							<p class="text-sm font-bold text-frost">Da -5° a -15°C</p>
+							<p class="text-[10px] text-slate-400 mt-0.5">Temperature tipiche di fine marzo a Rovaniemi</p>
+						</div>
+					</div>
+					<p class="text-[11px] text-slate-300/70 mt-3 px-1 leading-relaxed">
+						<span class="text-aurora/80 font-semibold">Niente paura!</span> Il freddo artico è secco, molto diverso dall'umidità padana. -10°C a Rovaniemi si sopportano meglio di 0°C a Bergamo.
+					</p>
+				</div>
+			</section>
+
+			<!-- Info utili -->
+			<section class="mb-10">
+				<div class="p-5 rounded-3xl glass-card">
+					<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+						<span class="material-symbols-outlined text-pale-gold/80">info</span>
+						Info Utili
+					</h3>
+					<div class="grid grid-cols-2 gap-3">
+						<div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/8">
+							<span class="material-symbols-outlined text-ice-blue/60 text-lg">schedule</span>
+							<div>
+								<p class="text-[10px] text-slate-400">Fuso orario</p>
+								<p class="text-xs font-semibold text-frost">UTC+2 (ITA +1h)</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/8">
+							<span class="material-symbols-outlined text-ice-blue/60 text-lg">euro</span>
+							<div>
+								<p class="text-[10px] text-slate-400">Valuta</p>
+								<p class="text-xs font-semibold text-frost">Euro (€)</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/8">
+							<span class="material-symbols-outlined text-ice-blue/60 text-lg">emergency</span>
+							<div>
+								<p class="text-[10px] text-slate-400">Emergenze</p>
+								<p class="text-xs font-semibold text-frost">112</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/8">
+							<span class="material-symbols-outlined text-ice-blue/60 text-lg">language</span>
+							<div>
+								<p class="text-[10px] text-slate-400">Lingua</p>
+								<p class="text-xs font-semibold text-frost">Finlandese / EN</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+
+		<!-- Back to top -->
+		<button
+			id="backToTop"
+			class="fixed bottom-6 right-5 w-10 h-10 rounded-full flex items-center justify-center music-pill opacity-0 pointer-events-none transition-all duration-300 z-50"
+			aria-label="Torna su"
+		>
+			<span class="material-symbols-outlined text-ice-blue text-lg">keyboard_arrow_up</span>
+		</button>
 
 		<footer class="text-center py-8 opacity-40">
 			<p class="text-[10px] font-bold uppercase tracking-[0.3em]">30 anni si fanno una volta sola!</p>
+			<div class="w-6 h-px mx-auto my-3 rounded-full" style="background: linear-gradient(90deg, transparent, rgba(147,197,253,0.4), transparent);"></div>
+			<p class="text-[9px] tracking-[0.15em] text-slate-500">Viaggio organizzato da <span class="text-ice-blue/60 font-semibold">Cici Nordic Adventures</span></p>
 		</footer>
 
 		<audio id="bgMusic" loop preload="auto">
@@ -1171,6 +1355,53 @@
 						});
 					});
 				}, 100);
+
+				// Countdown
+				const cdDays = document.getElementById('cdDays');
+				const cdHours = document.getElementById('cdHours');
+				const cdMins = document.getElementById('cdMins');
+				const cdSecs = document.getElementById('cdSecs');
+				const cdSection = document.getElementById('countdownSection');
+
+				function updateCountdown() {
+					const departure = new Date('2026-03-21T16:20:00');
+					const now = new Date();
+					const diff = departure - now;
+
+					if (diff <= 0) {
+						cdSection.style.display = 'none';
+						return;
+					}
+
+					const d = Math.floor(diff / 86400000);
+					const h = Math.floor((diff % 86400000) / 3600000);
+					const m = Math.floor((diff % 3600000) / 60000);
+					const s = Math.floor((diff % 60000) / 1000);
+
+					cdDays.textContent = String(d).padStart(2, '0');
+					cdHours.textContent = String(h).padStart(2, '0');
+					cdMins.textContent = String(m).padStart(2, '0');
+					cdSecs.textContent = String(s).padStart(2, '0');
+				}
+
+				updateCountdown();
+				setInterval(updateCountdown, 1000);
+
+				// Back to top
+				const backBtn = document.getElementById('backToTop');
+				window.addEventListener('scroll', () => {
+					if (window.scrollY > 400) {
+						backBtn.style.opacity = '1';
+						backBtn.style.pointerEvents = 'auto';
+					} else {
+						backBtn.style.opacity = '0';
+						backBtn.style.pointerEvents = 'none';
+					}
+				}, { passive: true });
+
+				backBtn.addEventListener('click', () => {
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+				});
 			});
 		</script>
 	</body>
