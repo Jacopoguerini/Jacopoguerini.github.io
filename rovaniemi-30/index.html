@@ -201,6 +201,24 @@
 				height: 100dvh;
 			}
 
+			/* Hide everything behind splash until dismissed */
+			.splash-active .aurora-bg,
+			.splash-active header,
+			.splash-active main,
+			.splash-active footer,
+			.splash-active #backToTop {
+				visibility: hidden;
+				opacity: 0;
+				filter: blur(12px);
+			}
+
+			header,
+			main,
+			footer,
+			#backToTop {
+				transition: opacity 0.5s ease, visibility 0.5s ease, filter 0.6s ease;
+			}
+
 			.splash-overlay {
 				position: fixed;
 				inset: 0;
@@ -241,13 +259,8 @@
 			}
 
 			.splash-transitioning .splash-content {
-				animation: frostDissolve 1.6s ease-in-out forwards;
+				animation: frostDissolve 1.2s ease-in-out forwards;
 				pointer-events: none;
-			}
-
-			.splash-transitioning .drift-layer {
-				display: block;
-				animation: snowDrift 1.6s ease-in-out forwards;
 			}
 
 			@keyframes snow {
@@ -663,36 +676,88 @@
 				</div>
 			</div>
 
-			<!-- Countdown -->
+			<!-- Countdown / Trip Status -->
 			<div class="py-4" id="countdownSection">
-				<p class="text-[10px] text-center text-slate-400 uppercase tracking-widest font-semibold mb-3">Partenza tra</p>
-				<div class="flex items-center justify-center gap-2">
-					<div class="flex flex-col items-center">
-						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold tabular-nums countdown-num" id="cdDays">--</span>
+				<!-- State: Pre-trip countdown -->
+				<div id="preTrip">
+					<p class="text-[10px] text-center text-slate-400 uppercase tracking-widest font-semibold mb-3">Partenza tra</p>
+					<div class="flex items-center justify-center gap-2">
+						<div class="flex flex-col items-center">
+							<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+								<span class="text-xl font-bold tabular-nums countdown-num" id="cdDays">--</span>
+							</div>
+							<span class="text-[9px] text-slate-500 mt-1.5 font-medium">GIORNI</span>
 						</div>
-						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">GIORNI</span>
+						<span class="text-lg font-light text-slate-500 mb-4">:</span>
+						<div class="flex flex-col items-center">
+							<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+								<span class="text-xl font-bold tabular-nums countdown-num" id="cdHours">--</span>
+							</div>
+							<span class="text-[9px] text-slate-500 mt-1.5 font-medium">ORE</span>
+						</div>
+						<span class="text-lg font-light text-slate-500 mb-4">:</span>
+						<div class="flex flex-col items-center">
+							<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+								<span class="text-xl font-bold tabular-nums countdown-num" id="cdMins">--</span>
+							</div>
+							<span class="text-[9px] text-slate-500 mt-1.5 font-medium">MIN</span>
+						</div>
+						<span class="text-lg font-light text-slate-500 mb-4">:</span>
+						<div class="flex flex-col items-center">
+							<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+								<span class="text-xl font-bold tabular-nums countdown-num" id="cdSecs">--</span>
+							</div>
+							<span class="text-[9px] text-slate-500 mt-1.5 font-medium">SEC</span>
+						</div>
 					</div>
-					<span class="text-lg font-light text-slate-500 mb-4">:</span>
-					<div class="flex flex-col items-center">
-						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold tabular-nums countdown-num" id="cdHours">--</span>
+				</div>
+
+				<!-- State: Trip in progress -->
+				<div id="duringTrip" class="hidden">
+					<div class="flex flex-col items-center gap-3 py-2">
+						<div class="flex items-center gap-2">
+							<span class="text-2xl">✈️</span>
+							<span class="text-2xl">🎿</span>
+							<span class="text-2xl">🦌</span>
 						</div>
-						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">ORE</span>
+						<p class="text-sm font-bold shimmer-text tracking-wide uppercase">Viaggio in corso</p>
+						<div class="flex items-center gap-1.5 mt-1">
+							<span class="relative flex h-2.5 w-2.5">
+								<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-aurora opacity-75"></span>
+								<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-aurora"></span>
+							</span>
+							<span class="text-[10px] text-aurora font-semibold uppercase tracking-widest">Live da Rovaniemi</span>
+						</div>
 					</div>
-					<span class="text-lg font-light text-slate-500 mb-4">:</span>
-					<div class="flex flex-col items-center">
-						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold tabular-nums countdown-num" id="cdMins">--</span>
+				</div>
+
+				<!-- State: Post-trip -->
+				<div id="postTrip" class="hidden">
+					<div class="flex flex-col items-center gap-3 py-2">
+						<span class="text-2xl">🌌</span>
+						<p class="text-[10px] text-center text-slate-400 uppercase tracking-widest font-semibold mb-3">Sono passati dal viaggio</p>
+						<div class="flex items-center justify-center gap-2">
+							<div class="flex flex-col items-center">
+								<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+									<span class="text-xl font-bold tabular-nums countdown-num" id="ptDays">--</span>
+								</div>
+								<span class="text-[9px] text-slate-500 mt-1.5 font-medium">GIORNI</span>
+							</div>
+							<span class="text-lg font-light text-slate-500 mb-4">:</span>
+							<div class="flex flex-col items-center">
+								<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+									<span class="text-xl font-bold tabular-nums countdown-num" id="ptHours">--</span>
+								</div>
+								<span class="text-[9px] text-slate-500 mt-1.5 font-medium">ORE</span>
+							</div>
+							<span class="text-lg font-light text-slate-500 mb-4">:</span>
+							<div class="flex flex-col items-center">
+								<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+									<span class="text-xl font-bold tabular-nums countdown-num" id="ptMins">--</span>
+								</div>
+								<span class="text-[9px] text-slate-500 mt-1.5 font-medium">MIN</span>
+							</div>
 						</div>
-						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">MIN</span>
-					</div>
-					<span class="text-lg font-light text-slate-500 mb-4">:</span>
-					<div class="flex flex-col items-center">
-						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold tabular-nums countdown-num" id="cdSecs">--</span>
-						</div>
-						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">SEC</span>
 					</div>
 				</div>
 			</div>
@@ -1307,9 +1372,9 @@
 					document.body.classList.add("splash-transitioning");
 					setTimeout(() => {
 						splashOverlay.style.display = "none";
-						document.body.classList.remove("splash-active");
+							document.body.classList.remove("splash-active");
 						document.querySelector('.aurora-bg').classList.add('visible');
-					}, 1600);
+					}, 1200);
 				}
 
 				splashOverlay.addEventListener("click", () => {
@@ -1389,36 +1454,54 @@
 					});
 				}, 100);
 
-				// Countdown
-				const cdDays = document.getElementById('cdDays');
+				// Countdown / Trip Status
+				const DEPARTURE = new Date('2026-03-21T16:20:00');
+				const RETURN    = new Date('2026-03-24T21:45:00');
+
+				const preTripEl    = document.getElementById('preTrip');
+				const duringTripEl = document.getElementById('duringTrip');
+				const postTripEl   = document.getElementById('postTrip');
+
+				const cdDays  = document.getElementById('cdDays');
 				const cdHours = document.getElementById('cdHours');
-				const cdMins = document.getElementById('cdMins');
-				const cdSecs = document.getElementById('cdSecs');
-				const cdSection = document.getElementById('countdownSection');
+				const cdMins  = document.getElementById('cdMins');
+				const cdSecs  = document.getElementById('cdSecs');
 
-				function updateCountdown() {
-					const departure = new Date('2026-03-21T16:20:00');
-					const now = new Date();
-					const diff = departure - now;
+				const ptDays  = document.getElementById('ptDays');
+				const ptHours = document.getElementById('ptHours');
+				const ptMins  = document.getElementById('ptMins');
 
-					if (diff <= 0) {
-						cdSection.style.display = 'none';
-						return;
-					}
-
-					const d = Math.floor(diff / 86400000);
-					const h = Math.floor((diff % 86400000) / 3600000);
-					const m = Math.floor((diff % 3600000) / 60000);
-					const s = Math.floor((diff % 60000) / 1000);
-
-					cdDays.textContent = String(d).padStart(2, '0');
-					cdHours.textContent = String(h).padStart(2, '0');
-					cdMins.textContent = String(m).padStart(2, '0');
-					cdSecs.textContent = String(s).padStart(2, '0');
+				function showOnly(el) {
+					[preTripEl, duringTripEl, postTripEl].forEach(s => s.classList.add('hidden'));
+					el.classList.remove('hidden');
 				}
 
-				updateCountdown();
-				setInterval(updateCountdown, 1000);
+				function updateTripStatus() {
+					const now = new Date();
+
+					if (now < DEPARTURE) {
+						// Pre-trip: countdown to departure
+						showOnly(preTripEl);
+						const diff = DEPARTURE - now;
+						cdDays.textContent  = String(Math.floor(diff / 86400000)).padStart(2, '0');
+						cdHours.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+						cdMins.textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+						cdSecs.textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+					} else if (now <= RETURN) {
+						// During trip
+						showOnly(duringTripEl);
+					} else {
+						// Post-trip: time elapsed since return
+						showOnly(postTripEl);
+						const elapsed = now - RETURN;
+						ptDays.textContent  = String(Math.floor(elapsed / 86400000)).padStart(2, '0');
+						ptHours.textContent = String(Math.floor((elapsed % 86400000) / 3600000)).padStart(2, '0');
+						ptMins.textContent  = String(Math.floor((elapsed % 3600000) / 60000)).padStart(2, '0');
+					}
+				}
+
+				updateTripStatus();
+				setInterval(updateTripStatus, 1000);
 
 				// Back to top
 				const backBtn = document.getElementById('backToTop');
