@@ -70,36 +70,67 @@
 				z-index: 0;
 				pointer-events: none;
 				overflow: hidden;
+				opacity: 0;
+				transition: opacity 3s ease;
+			}
+
+			.aurora-bg.visible {
+				opacity: 1;
 			}
 
 			.aurora-blob {
 				position: absolute;
 				border-radius: 50%;
-				filter: blur(80px);
-				will-change: opacity;
+				filter: blur(100px);
+				will-change: opacity, transform;
 			}
 
 			.aurora-blob-1 {
-				width: 350px;
-				height: 350px;
-				top: 10%;
-				left: -10%;
-				background: rgba(74, 222, 128, 0.19);
-				animation: auroraPulse 8s ease-in-out infinite;
+				width: 420px;
+				height: 420px;
+				top: 5%;
+				left: -15%;
+				background: rgba(74, 222, 128, 0.16);
+				animation: auroraDrift1 18s ease-in-out infinite;
 			}
 
 			.aurora-blob-2 {
-				width: 300px;
-				height: 300px;
-				bottom: 20%;
-				right: -8%;
-				background: rgba(147, 197, 253, 0.15);
-				animation: auroraPulse 10s ease-in-out 3s infinite;
+				width: 380px;
+				height: 380px;
+				bottom: 15%;
+				right: -12%;
+				background: rgba(147, 197, 253, 0.13);
+				animation: auroraDrift2 22s ease-in-out 3s infinite;
 			}
 
-			@keyframes auroraPulse {
-				0%, 100% { opacity: 0.35; }
-				50% { opacity: 0.75; }
+			.aurora-blob-3 {
+				width: 300px;
+				height: 300px;
+				top: 45%;
+				left: 20%;
+				background: rgba(192, 132, 252, 0.09);
+				animation: auroraDrift3 24s ease-in-out 6s infinite;
+			}
+
+			@keyframes auroraDrift1 {
+				0%, 100% { opacity: 0.45; transform: translateY(0); }
+				50% { opacity: 0.7; transform: translateY(-15px); }
+			}
+
+			@keyframes auroraDrift2 {
+				0%, 100% { opacity: 0.4; transform: translateY(0); }
+				50% { opacity: 0.65; transform: translateY(12px); }
+			}
+
+			@keyframes auroraDrift3 {
+				0%, 100% { opacity: 0.4; transform: translateY(0) translateX(0); }
+				50% { opacity: 0.6; transform: translateY(-10px) translateX(8px); }
+			}
+
+			.countdown-num {
+				background: linear-gradient(180deg, #f1f5f9 30%, #93c5fd 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
 			}
 
 			details > summary {
@@ -569,6 +600,7 @@
 		<div class="aurora-bg" aria-hidden="true">
 			<div class="aurora-blob aurora-blob-1"></div>
 			<div class="aurora-blob aurora-blob-2"></div>
+			<div class="aurora-blob aurora-blob-3"></div>
 		</div>
 		<div class="splash-overlay active splash-content" id="splashOverlay" aria-label="Apri itinerario" role="button">
 			<div class="splash-background" style='background-image: url("screen.png");'></div>
@@ -637,28 +669,28 @@
 				<div class="flex items-center justify-center gap-2">
 					<div class="flex flex-col items-center">
 						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold text-frost tabular-nums" id="cdDays">--</span>
+							<span class="text-xl font-bold tabular-nums countdown-num" id="cdDays">--</span>
 						</div>
 						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">GIORNI</span>
 					</div>
 					<span class="text-lg font-light text-slate-500 mb-4">:</span>
 					<div class="flex flex-col items-center">
 						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold text-frost tabular-nums" id="cdHours">--</span>
+							<span class="text-xl font-bold tabular-nums countdown-num" id="cdHours">--</span>
 						</div>
 						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">ORE</span>
 					</div>
 					<span class="text-lg font-light text-slate-500 mb-4">:</span>
 					<div class="flex flex-col items-center">
 						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold text-frost tabular-nums" id="cdMins">--</span>
+							<span class="text-xl font-bold tabular-nums countdown-num" id="cdMins">--</span>
 						</div>
 						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">MIN</span>
 					</div>
 					<span class="text-lg font-light text-slate-500 mb-4">:</span>
 					<div class="flex flex-col items-center">
 						<div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-							<span class="text-xl font-bold text-aurora tabular-nums" id="cdSecs">--</span>
+							<span class="text-xl font-bold tabular-nums countdown-num" id="cdSecs">--</span>
 						</div>
 						<span class="text-[9px] text-slate-500 mt-1.5 font-medium">SEC</span>
 					</div>
@@ -1276,6 +1308,7 @@
 					setTimeout(() => {
 						splashOverlay.style.display = "none";
 						document.body.classList.remove("splash-active");
+						document.querySelector('.aurora-bg').classList.add('visible');
 					}, 1600);
 				}
 
